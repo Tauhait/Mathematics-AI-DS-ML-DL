@@ -1,3 +1,5 @@
+import numpy as np
+
 def bayes_theorem(P_E, P_F_given_E, P_F):
     return (P_E * P_F_given_E) / P_F
 
@@ -9,13 +11,13 @@ def calc_P_E_given_F(P_E_and_F, P_F):
     
 def bothChildMale_given_at_least_one_male():    
     # Prior or P(E) = both children to be males
-    P_E = 0.25
+    P_E = np.random.random()
     
     # Evidence or P(F) = at least one children to be male
-    P_F = 0.75
+    P_F = np.random.random()
     
     # P(E and F)
-    P_E_and_F = 0.25
+    P_E_and_F = P_E * P_F
     
     # Likelihood or P( F|E )
     P_F_given_E = calc_P_F_given_E(P_E_and_F, P_E)
@@ -28,13 +30,13 @@ def bothChildMale_given_at_least_one_male():
 
 def bothChildFemale_given_elder_female():    
     # Prior or P(E) = both children to be females
-    P_E = 0.25
+    P_E = np.random.random()
     
     # Evidence or P(F) = elder child being a female
-    P_F = 0.5
+    P_F = np.random.random()
     
     # P(E and F)
-    P_E_and_F = 0.25
+    P_E_and_F = P_E * P_F
     
     # Likelihood or P( F|E )
     P_F_given_E = calc_P_F_given_E(P_E_and_F, P_E)
