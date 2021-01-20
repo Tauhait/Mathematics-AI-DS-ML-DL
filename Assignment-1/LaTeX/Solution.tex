@@ -50,7 +50,7 @@
 \usepackage{chngcntr}
 \usepackage{mdframed}
 \DeclareMathOperator*{\Res}{Res}
-\usepackage{amsmath}
+
 \renewcommand\thesection{\arabic{section}}
 \renewcommand\thesubsection{\thesection.\arabic{subsection}}
 \renewcommand\thesubsubsection{\thesubsection.\arabic{subsubsection}}
@@ -143,14 +143,49 @@ columns=fullflexible
 \renewcommand{\thetable}{\theenumi}
 \begin{mdframed}
 Download code and LaTeX from below hyperlinks\\
-1. \href{https://github.com/Tauhait/AI5002/Assignment-1/Code}{Code}
+1. \href{https://github.com/Tauhait/AI5002/tree/main/Assignment-1/Codes}{Code}
 
 
-2. \href{https://github.com/Tauhait/AI5002/Assignment-1/LaTeX}{LaTeX}
+2. \href{https://github.com/Tauhait/AI5002/tree/main/Assignment-1/LaTeX}{LaTeX}
 \end{mdframed}
-\subsection*{\boldsymbol{Problem}}
+\subsection*{\boldsymbol{Problem\ 6.1.3}}
 
-6.1.4 Find an expression for $F_A(x)$ using the definition. Plot this expression and compare with the result of problem 6.1.3\\
+Plot the CDF and PDf of\\
+\begin{align}
+A = \sqrt{V}
+\end{align}
+
+\subsection*{\boldsymbol{Solution}}\\
+We can write A = \sqrt{V}\ \ as\\
+
+\begin{align}A = \sqrt{X_1^2 + X_2^2}\end{align}\\
+
+since\ it\ is\ given\ $X_1$\ \sim N(0,1),\ $X_2$ \sim\ N(0,1)\ and\ \\
+$V = X_1^2 + X_2^2$.\\
+
+Since joint distribution is not mentioned so we assume $X_1\ and\ X_2$ to be independent otherwise the distribution of A would be unknown.\\
+
+By definition, the distribution of A is Chi with two degrees of freedom or Rayleigh.\\
+
+The CDF and PDF plot is as shown in Fig 1.1 and Fig 1.2.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=10cm]{Assignment-1/Codes/Figures/CDF.png}
+    \caption*{Fig 1.1: Cumulative distribution function}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=10cm]{Assignment-1/Codes/Figures/PDf.png}
+    \caption*{Fig 1.2: Probability density function}
+\end{figure}\\
+
+\newpage\\
+
+\subsection*{\boldsymbol{Problem\ 6.1.4}}
+
+Find an expression for $F_A(x)$ using the definition. Plot this expression and compare with the result of problem 6.1.3\\
 
 \subsection*{\boldsymbol{Solution}}\\
 Given $X_1$\ \sim N(0,1),\ $X_2$ \sim\ N(0,1),\ and\ $V = X_1^2 + X_2^2$.\\
@@ -200,9 +235,9 @@ Also, \theta=\tan^{-1}{\frac{x_2}{x_1}}\\
 \end{bmatrix}
 \\
 \\
-\det(\mathbf{J}_{x_1,x_2})= r\ \cos^2 \theta + r\ \sin^2 \theta\ = r\\
+\det\ (\ \mathbf{J}_{x_1,x_2}\ )= r\ \cos^2 \theta + r\ \sin^2 \theta\ = r\\
 
-Thus, F(r, \theta) = r.F(x_1, x_2)\\
+Thus, F\ (\ r, \theta\ ) = r\ .\ F(\ x_1, x_2\ )\\
 \ where\ (x_1, x_2)\ are\ written\ in\ terms\ of\ (r, \theta).\\
 
 Now, we can write (1) as\\
@@ -233,13 +268,34 @@ $$
 \]
 \\
 \begin{mdframed}
-Thus the CDF $F_A(x)$ is derived as\\
+Thus the CDF  is derived as\\
+\begin{align*} F_A(x) = {1\ -\ \exp\ ({-{x^2}}/{2\sigma^2})}\end{align*}
+\end{mdframed}\\
 
-= \large\boldsymbol{1\ -\ \exp\ ({-{x^2}}/{2\sigma^2})}
-\end{mdframed}
+\newpage\\
+
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=10cm]{Assignment-1/Codes/Figures/CDF.png}
-    \caption*{Fig 1: Cumulative distribution function}
+    \includegraphics[width=10cm]{Assignment-1/Codes/Figures/cdf_actual_Vs_simulate.png}
+    \caption*{Fig 3: CDF Actual Vs Simulation}
+\end{figure}
+
+\subsection*{\boldsymbol{Problem\ 6.1.5}}
+Find an expression for $p_A(x)$ using the definition.
+
+\subsection*{\boldsymbol{Solution}}\\
+
+The PDf can be derived by differentiating the CDF expression from the previous problem 6.1.4 \\
+\begin{mdframed}
+p_A(x) = \frac{d}{dx} F_A(x)\newline\newline
+= - e^{-\frac{x^2}{2\sigma^2}}.\ (-\frac{2x}{2\sigma^2})\newline\newline
+= {e^{-\frac{x^2}{2\sigma^2}}\ .\ \frac{x}{\sigma^2}}
+
+\end{mdframed}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=10cm]{Assignment-1/Codes/Figures/pdf_actual_Vs_simulate.png}
+    \caption*{Fig 4: PDf Actual Vs Simulation}
 \end{figure}
 \end{document}
