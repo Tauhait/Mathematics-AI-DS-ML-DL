@@ -5,8 +5,9 @@ Created on Wed Jan 27 12:49:44 2021
 @author: TUHIN
 """
 import matplotlib.pyplot as plt
+import numpy as np
 from math import factorial as f
-from scipy.stats import binom
+from scipy.stats import bernoulli
 
 def binomial(n, p, q, x):
     return f(n) / (f(x) * f(n - x)) * (p ** x) * (q ** ( n - x))
@@ -32,13 +33,23 @@ def calc_binom():
     
     
 def sim_binom():
-    x_lst = [0, 1, 2, 3, 4, 5, 6]
+    n_rvs = 7
+    sim_len = int(1e4)
+    sim_bern_arr = np.zeros(shape=(n_rvs, sim_len), dtype=float)
+    sim_counter = np.zeros(shape=n_rvs, dtype=float)
+    sim_pmf = np.zeros(shape=n_rvs, dtype=float)
+    sim_cdf = np.zeros(shape=n_rvs, dtype=float)
+    for i in range(n_rvs):        
+        sim_bern_arr[i, :] = bernoulli.rvs(size=sim_len, p=binomial(6, 0.5, 0.5, i))
     
-    sim_pmf_dist = [binom.pmf(k, n = 6, p = 0.5) for k in x_lst]
-    simPlot(x_lst, sim_pmf_dist, 'blue', 'Simulation PMf')
+    sim_counter = np.sum(sim_bern_arr, axis=1)
+    sim_pmf = sim_counter / sim_len
+    sim_cdf = np.cumsum(sim_pmf)
+        
+    x_lst = [0, 1, 2, 3, 4, 5, 6]
+    simPlot(x_lst, sim_pmf, 'blue', 'Simulation PMf')
     print('\n\n')
-    sim_cdf_dist = [binom.cdf(k, n = 6, p = 0.5) for k in x_lst]
-    simPlot(x_lst, sim_cdf_dist, 'yellow','Simulation CDF')
+    simPlot(x_lst, sim_cdf, 'yellow','Simulation CDF')
 
 
 def simPlot(x, dist, col, t):
