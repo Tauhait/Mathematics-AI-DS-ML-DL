@@ -46,31 +46,53 @@ def plotDist(xStart, yStart, xLimit, yLimit, labelY):
     plt.ylabel(labelY)
     plt.show()
 
-# Utility method to genearate linearly spaced 500 real nos in range(0, 10)
-def gene_linspace_x():
-    return np.linspace(start=0, stop=10, num=500)
+# Simulates PDf and CDF for 10000 rayleigh RVs
+def theory_sim(dof, s):
+    degreeOfFreedom = dof
+    sim_len = int(1e4)
+    X = np.zeros(shape=(degreeOfFreedom, sim_len), dtype=float)
+    for i in range(degreeOfFreedom):        
+        X[i, :] = stats.rayleigh.rvs(loc=0, scale=s, size=sim_len)
+    
+    A = np.zeros(shape=sim_len, dtype=float)
+    sim_pdf = np.zeros(shape=sim_len, dtype=float)
+    sim_cdf = np.zeros(shape=sim_len, dtype=float)
 
-# Verify PDf using simulation
-def verify_PDf():
-    X = gene_linspace_x()
-    ray_pdf = stats.rayleigh.pdf(X, loc=0.0, scale=0.5)
-    plot(X, ray_pdf, "red", 'PDf')
+    X_sq = np.square(X)
 
-# Verify PDf using simulation
-def verify_CDF():
-    X = gene_linspace_x()
-    ray_cdf = stats.rayleigh.cdf(X, loc=0.0, scale=0.5)
-    plot(X, ray_cdf, "green", 'CDF')
+    X_sq_sum = np.sum(X_sq, axis=0)
+
+    A = np.sqrt(X_sq_sum)
+    
+    theo_pdf = stats.rayleigh.pdf(A, loc=0, scale=s)
+    sim_pdf = calcPDf(A, s)
+    theo_cdf = stats.rayleigh.cdf(A, loc=0, scale=s)
+    sim_cdf = calcCDF(A, s)
+    
+    labl = '$\sigma$ = %.2f' %s
+    plot(A, theo_pdf, 'red', 'PDf', 'Theoretical PDf', labl)
+    print('\n\n\n\n')
+    plot(A, sim_pdf, 'blue', 'PDf', 'Simulation PDf', labl)
+    print('\n\n\n\n')
+    plot(A, theo_cdf, 'green', 'CDF', 'Theoretical CDF', labl)
+    print('\n\n\n\n')
+    plot(A, sim_cdf, 'black', 'CDF', 'Simulation CDF', labl)
+    print('\n\n\n\n')
 
 # Utiltity method to help plotting
-def plot(x, y, col, density_type):
-    plt.plot(x, y, color=col)
-    plt.xlabel('Range of X')
-    plt.ylabel(density_type)
-    plt.title(density_type + ' plot using derived formula')
+def plot(x, y, col, dist, t, l):
+    plt.plot(x, y, color=col, label=l)
+    plt.legend()
+    plt.xlabel('Range of A')
+    plt.ylabel(dist)
+    plt.title(t)
     plt.show()  
-    
+
+
 plotPDf()
 plotCDF()
-verify_PDf()
-verify_CDF()
+
+# Sigma for theoretical and simulation
+s = 0.5
+# function call for theoretical and simulation
+theory_sim(2, s)
