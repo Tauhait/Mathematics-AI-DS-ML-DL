@@ -32,11 +32,12 @@ def sim():
     
     sim_cdf = np.cumsum(sim_pmf)
     x = np.array([0, 1, 2])
-    y1 = np.array([0.851, 0.145, 0.004])
-    y2 = np.array([0.851, 0.996, 1.0])
-
+    y1 = np.array([p_x1, p_x2, p_x3])
+    y2 = np.array([p_x1, p_x1 + p_x2, p_x1 + p_x2 + p_x3])
+    print('The theoretical PMf values are: ', y1)
     print('The simulation PMf values are: ', sim_pmf)
-    print('The CDF values  are: ', sim_cdf)
+    print('The theoretical CDF values are: ', y2)
+    print('The simulated CDF values  are: ', sim_cdf)
     plot(x, y1, sim_pmf, mean, std, 'blue', 'red', 'Theory Vs Simulation PMf', False)
     print('\n\n')
     plot(x, y2, sim_cdf, mean, std, 'yellow', 'black', 'Theory Vs Simulation CDF', True)
