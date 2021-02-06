@@ -70,22 +70,19 @@ def theory_sim(dof, s):
     sim_cdf = calcCDF(A, s)
     
     labl = '$\sigma$ = %.2f' %s
-    plot(A, theo_pdf, 'red', 'PDf', 'Theoretical PDf', labl)
+    plot(A, theo_pdf, sim_pdf, 'red', 'blue', 'PDf', labl)
     print('\n\n\n\n')
-    plot(A, sim_pdf, 'blue', 'PDf', 'Simulation PDf', labl)
-    print('\n\n\n\n')
-    plot(A, theo_cdf, 'green', 'CDF', 'Theoretical CDF', labl)
-    print('\n\n\n\n')
-    plot(A, sim_cdf, 'black', 'CDF', 'Simulation CDF', labl)
+    plot(A, theo_cdf, sim_cdf, 'green', 'black', 'CDF', labl)
     print('\n\n\n\n')
 
 # Utiltity method to help plotting
-def plot(x, y, col, dist, t, l):
-    plt.plot(x, y, color=col, label=l)
+def plot(x, ytheo, ysim, col1, col2, dist, l):
+    plt.scatter(x, ytheo, color=col1, marker="o", label=l)
+    plt.scatter(x, ysim, color=col2, marker=".", label=l)
     plt.legend()
     plt.xlabel('Range of A')
     plt.ylabel(dist)
-    plt.title(t)
+    plt.title('Theoretical Vs Simulation ' + dist)
     plt.show()  
 
 
