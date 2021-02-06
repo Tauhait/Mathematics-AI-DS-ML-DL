@@ -9,28 +9,34 @@ import numpy as np
 from scipy.stats import bernoulli
     
 def sim():
-    np.random.seed(0)
     n_rvs = 3
     mean = 34/221
     std = np.sqrt(6800/48841)
-    p_x = np.array([np.float64(188/221), np.float64(32/221), np.float64(1/221)])
+    p_x1 = np.float64(188/221)
+    p_x2 = np.float64(32/221)
+    p_x3 = np.float64(1/221)
+    
     sim_len = int(1e9)
+    sim_bern_arr = np.zeros(shape=(n_rvs, sim_len), dtype=int)
+    sim_bern_arr[0] = bernoulli.rvs(size=sim_len, p=p_x1)
+    sim_bern_arr[1] = bernoulli.rvs(size=sim_len, p=p_x2)
+    sim_bern_arr[2] = bernoulli.rvs(size=sim_len, p=p_x3)
+    
     sim_counter = np.zeros(shape=n_rvs, dtype=int)
-    sim_pmf = np.zeros(shape=n_rvs, dtype=float)
-    sim_cdf = np.zeros(shape=n_rvs, dtype=float)
-    remain_samples = sim_len
+    sim_pmf = np.zeros(shape=n_rvs, dtype=np.float64)
+    sim_cdf = np.zeros(shape=n_rvs, dtype=np.float64)
     for i in range(n_rvs):
-        sim_bern_arr = bernoulli.rvs(size=remain_samples, p=p_x[i])    
-        sim_counter[i] = np.count_nonzero(sim_bern_arr==1)        
-        sim_pmf[i] = np.float64(sim_counter[i]/remain_samples)
-        remain_samples = remain_samples - sim_counter[i]
+        sim_counter[i] = np.count_nonzero(sim_bern_arr[i]==1)
+        temp = sim_counter[i]/sim_len
+        sim_pmf[i] = temp
     
     sim_cdf = np.cumsum(sim_pmf)
     x = np.array([0, 1, 2])
     y1 = np.array([0.851, 0.145, 0.004])
     y2 = np.array([0.851, 0.996, 1.0])
-    print('The simulation PMf values are: ', np.round(sim_pmf, 3))
-    print('The CDF values are: ', np.round(sim_cdf, 3))
+
+    print('The simulation PMf values are: ', sim_pmf)
+    print('The CDF values  are: ', sim_cdf)
     plot(x, y1, sim_pmf, mean, std, 'blue', 'red', 'Theory Vs Simulation PMf', False)
     print('\n\n')
     plot(x, y2, sim_cdf, mean, std, 'yellow', 'black', 'Theory Vs Simulation CDF', True)
