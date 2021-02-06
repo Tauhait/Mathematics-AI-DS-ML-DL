@@ -3,14 +3,12 @@ Probability and Random Variables
 
   * <h1>Assignment 1 - Rayleigh distribution</h1>
   
-  ![alt text](https://github.com/Tauhait/AI5002/blob/main/Assignment-1/Codes/Figures/theo_Vs_sim_pdf.png)   ![alt text](https://github.com/Tauhait/AI5002/blob/main/Assignment-1/Codes/Figures/theo_Vs_sim_cdf.png)
+  ![alt text](https://github.com/Tauhait/AI5002/blob/main/Assignment-1/Codes/Figures/theo_Vs_sim_pdf.png)     ![alt text](https://github.com/Tauhait/AI5002/blob/main/Assignment-1/Codes/Figures/theo_Vs_sim_cdf.png)
     
   
   * <h1>Assignment 2 - Bernoulli distribution</h1>
   
-  ![alt text](https://github.com/Tauhait/AI5002/blob/main/Assignment-2/Codes/Figures/bern_1_18.png)
-  
-  ![alt text](https://github.com/Tauhait/AI5002/blob/main/Assignment-2/Codes/Figures/bern_1_19.png)  
+  ![alt text](https://github.com/Tauhait/AI5002/blob/main/Assignment-2/Codes/Figures/bern_1_18.png)            ![alt text](https://github.com/Tauhait/AI5002/blob/main/Assignment-2/Codes/Figures/bern_1_19.png)  
   
   * <h1>Assignment 3 - Bayes theorem</h1>
   
