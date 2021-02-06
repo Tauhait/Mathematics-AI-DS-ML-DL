@@ -20,4 +20,4 @@ Probability and Random Variables
   
   * <h1>Assignment 5 - King of Cards distribution</h1>
   
-  ![alt text](https://github.com/Tauhait/AI5002/blob/main/Assignment-5/Codes/Figures/theoryVsSimul_cdf.png) ![alt text](https://github.com/Tauhait/AI5002/blob/main/Assignment-5/Codes/Figures/theoryVsSimul_pmf.png)
+  ![alt text](https://github.com/Tauhait/AI5002/blob/main/Assignment-5/Codes/Figures/theoryVsSimul_pdf.png) ![alt text](https://github.com/Tauhait/AI5002/blob/main/Assignment-5/Codes/Figures/theoryVsSimul_cdf.png)
