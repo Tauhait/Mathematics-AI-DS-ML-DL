@@ -15,6 +15,10 @@ Probability and Random Variables
   
   * Assignment 3 - Bayes theorem
   
+  https://github.com/Tauhait/AI5002/blob/main/Assignment-3/Codes/Figures/Fig_2_5_i.png
+  
+  https://github.com/Tauhait/AI5002/blob/main/Assignment-3/Codes/Figures/Fig_2_5_ii.png
+  
   * Assignment 4 - Binomial distribution
   
   * Assingment 5 - King of Cards distribution
