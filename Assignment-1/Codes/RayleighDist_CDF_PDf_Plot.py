@@ -52,7 +52,7 @@ def theory_sim(dof, s):
     sim_len = int(1e4)
     X = np.zeros(shape=(degreeOfFreedom, sim_len), dtype=float)
     for i in range(degreeOfFreedom):        
-        X[i, :] = stats.rayleigh.rvs(loc=0, scale=s, size=sim_len)
+        X[i, :] = np.random.normal(loc=0, scale=s, size=sim_len)
     
     A = np.zeros(shape=sim_len, dtype=float)
     sim_pdf = np.zeros(shape=sim_len, dtype=float)
@@ -70,15 +70,17 @@ def theory_sim(dof, s):
     sim_cdf = calcCDF(A, s)
     
     labl = '$\sigma$ = %.2f' %s
-    plot(A, theo_pdf, sim_pdf, 'red', 'blue', 'PDf', labl)
+    plot(A, theo_pdf, sim_pdf, 'cyan', 'blue', 'PDf', labl)
     print('\n\n\n\n')
-    plot(A, theo_cdf, sim_cdf, 'green', 'black', 'CDF', labl)
+    plot(A, theo_cdf, sim_cdf, 'yellow', 'red', 'CDF', labl)
     print('\n\n\n\n')
 
 # Utiltity method to help plotting
 def plot(x, ytheo, ysim, col1, col2, dist, l):
-    plt.scatter(x, ytheo, color=col1, marker="o", label=l)
-    plt.scatter(x, ysim, color=col2, marker=".", label=l)
+    theo_label = 'Theoretical ' + l
+    plt.scatter(x, ytheo, color=col1, marker="o", label=theo_label)
+    sim_label = 'Simulation ' + l
+    plt.scatter(x, ysim, color=col2, marker="_", label=sim_label)
     plt.legend()
     plt.xlabel('Range of A')
     plt.ylabel(dist)
