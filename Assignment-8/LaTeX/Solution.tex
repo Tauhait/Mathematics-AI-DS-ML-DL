@@ -22,7 +22,7 @@
 \usepackage{cite}
 \usepackage{cases}
 \usepackage{subfig}
-
+\usepackage{amsmath}
 \usepackage{longtable}
 \usepackage{multirow}
 \usepackage{float}
@@ -189,6 +189,37 @@ Give reasons for your answer.\end{flushleft}
 \end{table}
 \subsection*{\boldsymbol{Solution}}\\
 \begin{flushleft}
+Consider an experiment whose sample space is S. For each event E of the sample
+space S, we assume that a number P(E) is defined and satisfies the following three
+axioms -
+\newline
+We refer to P(E) as the probability of the event E.
+\newline
+\newline
+\newline
+\newline
+\newline
+\text{Axiom 1:}
+\begin{align}
+    0 \leq P (E) \leq 1
+\end{align}
+It states that the probability that the outcome of the experiment is an outcome in E is some number between 0 and 1.
+\newline
+\newline
+\text{Axiom 2:}
+\begin{align}
+    P (S) = 1
+\end{align}
+It states that, with probability 1, the outcome will be a point in the sample space S.
+\newline
+\newline
+\text{Axiom 3:}
+\begin{align}
+    P\ \Bigg(\bigcup_{i=1}^{\infty} \mathop{E_i} \Bigg) = \sum_{i=1}^{\infty} P (\mathop{E_i})
+\end{align}
+It states that, for any sequence of mutually exclusive events, the probability of at least one of these events occurring is just the sum of their respective probabilities.
+\newline
+\newline
 From figure i) we see that, the sum of probabilities is = 0.4 + 0.4 + 0.2 = 1.
 \newline Thus X is a valid probability distribution.
 \newline
@@ -205,4 +236,5 @@ From figure iv) we see that, the sum of probabilities is = 0.3 + 0.2 + 0.4 + 0.1
 \newline Thus X is NOT a valid probability distribution.
 \newline
 \end{flushleft}
+
 \end{document}

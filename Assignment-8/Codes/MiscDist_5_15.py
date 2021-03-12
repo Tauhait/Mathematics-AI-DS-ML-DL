@@ -13,10 +13,12 @@ def is_valid_probability_dist(var):
         x[i] = float(input('Enter value of x: '))
         p_x[i] = float(input('Enter value of P(x): '))
         if p_x[i] < 0 or p_x[i] > 1.0:
+           print('Probability of any event should be between 0 to 1, so it is an')
            return False
-    cdf = math.fsum(p_x)
-    print('CDF(x) = ', cdf)
-    if cdf != 1.0:
+    p_sum = math.fsum(p_x)
+    print('Summation of  P(x) over the sample space = ', p_sum)
+    if p_sum != 1.0:
+        print('Since it is not summing up to 1.0, so it is an')
         return False
     return True
 
