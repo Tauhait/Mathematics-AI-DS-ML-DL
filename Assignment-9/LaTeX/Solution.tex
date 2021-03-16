@@ -1,0 +1,218 @@
+\documentclass[journal,12pt,twocolumn]{IEEEtran}
+\usepackage{setspace}
+\usepackage{gensymb}
+\singlespacing
+\usepackage[cmex10]{amsmath}
+
+\usepackage{amsthm}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\urlstyle{same}
+\usepackage{mathrsfs}
+\usepackage{txfonts}
+\usepackage{stfloats}
+\usepackage{bm}
+\usepackage{cite}
+\usepackage{cases}
+\usepackage{subfig}
+
+\usepackage{longtable}
+\usepackage{multirow}
+
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{steinmetz}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{verbatim}
+\usepackage{tfrupee}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{graphicx}
+\usepackage{tkz-euclide}
+\usetikzlibrary{shapes,backgrounds}
+\usepackage{verbatim}
+\usetikzlibrary{calc,math}
+\usepackage{listings}
+    \usepackage{color}                                            %%
+    \usepackage{array}                                            %%
+    \usepackage{longtable}                                        %%
+    \usepackage{calc}                                             %%
+    \usepackage{multirow}                                         %%
+    \usepackage{hhline}                                           %%
+    \usepackage{ifthen}                                           %%
+    \usepackage{lscape}     
+\usepackage{multicol}
+\usepackage{chngcntr}
+\usepackage{mdframed}
+\DeclareMathOperator*{\Res}{Res}
+
+\renewcommand\thesection{\arabic{section}}
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+\renewcommand\thesubsubsection{\thesubsection.\arabic{subsubsection}}
+
+\renewcommand\thesectiondis{\arabic{section}}
+\renewcommand\thesubsectiondis{\thesectiondis.\arabic{subsection}}
+\renewcommand\thesubsubsectiondis{\thesubsectiondis.\arabic{subsubsection}}
+
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+\def\inputGnumericTable{}                                 %%
+
+\lstset{
+%language=C,
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+
+\title{AI5002}
+\author{TUHIN DUTTA}
+\date{January 2021}
+
+\begin{document}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{example}{Example}[section]
+\newtheorem{definition}[problem]{Definition}
+
+\newcommand{\BEQA}{\begin{eqnarray}}
+\newcommand{\EEQA}{\end{eqnarray}}
+\newcommand{\define}{\stackrel{\triangle}{=}}
+\bibliographystyle{IEEEtran}
+\raggedbottom
+\setlength{\parindent}{0pt}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+
+\providecommand{\res}[1]{\Res\displaylimits_{#1}} 
+
+%\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+%\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+	%\newcommand{\solution}[2]{\textbf{Solution:}{#1}}
+\newcommand{\solution}{\noindent \textbf{Solution: }}
+\newcommand{\cosec}{\,\text{cosec}\,}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
+\numberwithin{equation}{subsection}
+\makeatletter
+\@addtoreset{figure}{problem}
+\makeatother
+\let\StandardTheFigure\thefigure
+\let\vec\mathbf
+\renewcommand{\thefigure}{\theproblem}
+\def\putbox#1#2#3{\makebox[0in][l]{\makebox[#1][l]{}\raisebox{\baselineskip}[0in][0in]{\raisebox{#2}[0in][0in]{#3}}}}
+     \def\rightbox#1{\makebox[0in][r]{#1}}
+     \def\centbox#1{\makebox[0in]{#1}}
+     \def\topbox#1{\raisebox{-\baselineskip}[0in][0in]{#1}}
+     \def\midbox#1{\raisebox{-0.5\baselineskip}[0in][0in]{#1}}
+\vspace{3cm}
+\title{AI5002 - Assignment 9}
+\author{Tuhin Dutta\\ ai21mtech02002}
+\maketitle
+\newpage
+\bigskip
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\begin{mdframed}
+Download code and LaTeX from below hyperlinks\\
+1. \href{https://github.com/Tauhait/AI5002/blob/main/Assignment-9/Codes/AxiomProb\_6\_20.py}{Codes/AxiomProb\_6\_20.py}
+
+
+2. \href{https://github.com/Tauhait/AI5002/tree/main/Assignment-9/LaTeX}{LaTeX}
+\end{mdframed}
+\subsection*{\boldsymbol{Problem\ 6.20}}
+\begin{flushleft} An unbiased die is thrown twice. Let the event
+A be `odd number on the first throw' and B
+be event `odd number on the second throw'.
+Check the independence of the events A and
+B. \end{flushleft}
+
+\subsection*{\boldsymbol{Solution}}\\
+
+We know two events are said to be independent if P(A $\mathop{\cap}$ B) = P(A).P(B)\\
+\\
+Let us define the random variable S as `Throwing a unbiased dice twice'.
+The sample space of random variable S is given by -\\
+$
+S = \{\\
+(1,1)\ (1,2)\ (1,3)\ (1,4)\ (1,5)\ (1,6),\\
+(2,1)\ (2,2)\ (2,3)\ (2,4)\ (2,5)\ (2,6),\\
+(3,1)\ (3,2)\ (3,3)\ (3,4)\ (3,5)\ (3,6),\\
+(4,1)\ (4,2)\ (4,3)\ (4,4)\ (4,5)\ (4,6),\\
+(5,1)\ (5,2)\ (5,3)\ (5,4)\ (5,5)\ (5,6),\\
+(6,1)\ (6,2)\ (6,3)\ (6,4)\ (6,5)\ (6,6)  \}$
+\\
+\\
+We define two random variables X and Y where X denotes `Throwing an odd number on first throw' and Y denotes `Throwing an odd number on second throw'.
+
+The sample space of X is given by - \\
+$X = \{\\
+(1,1)\ (1,2)\ (1,3)\ (1,4)\ (1,5)\ (1,6),\\
+(3,1)\ (3,2)\ (3,3)\ (3,4)\ (3,5)\ (3,6),\\
+(5,1)\ (5,2)\ (5,3)\ (5,4)\ (5,5)\ (5,6)  \} $
+
+Probability of odd number on the first throw\\
+\begin{align}
+    P(X) = \frac{n(X)}{n(S)} = \frac{18}{36} = \frac{1}{2}
+\end{align}
+
+The sample space of random variable Y is given by - \\
+$Y = \{\\
+(1,1)\ (1,3)\ (1,5),\\
+(2,1)\ (2,3)\ (2,5),\\
+(3,1)\ (3,3)\ (3,5),\\
+(4,1)\ (4,3)\ (4,5),\\
+(5,1)\ (5,3)\ (5,5),\\
+(6,1)\ (6,3)\ (6,5)  \} $
+
+Probability of odd number on the second throw\\
+\begin{align}
+    P(Y) = \frac{n(Y)}{n(S)} = \frac{18}{36} = \frac{1}{2}
+\end{align}
+
+We define one more random variable Z which is defined as `Throwing odd numbers on both first and second throws' and the sample space is given by - \\
+$
+Z = \{\\
+(1,1)\ (1,3)\ (1,5),\\
+(3,1)\ (3,3)\ (3,5),\\
+(5,1)\ (5,3)\ (5,5) \}$
+
+Probability of odd number on the first and second throw.\\
+\begin{align}
+    P(Z) = \frac{n(Z)}{n(S)} = \dfrac{9}{36} = \dfrac{1}{4}
+\end{align}
+
+Also, P(X) . P(Y) = \dfrac{1}{2} . \dfrac{1}{2} = \dfrac{1}{4}\\
+
+Since,\\ P(Z) = P(X) . P(Y)\\
+Therefore, X and Y are independent random variables.
+\end{document}
