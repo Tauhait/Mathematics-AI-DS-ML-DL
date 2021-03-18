@@ -1,0 +1,272 @@
+\documentclass[journal,12pt,twocolumn]{IEEEtran}
+\usepackage{setspace}
+\usepackage{gensymb}
+\singlespacing
+\usepackage[cmex10]{amsmath}
+
+\usepackage{amsthm}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\urlstyle{same}
+\usepackage{mathrsfs}
+\usepackage{txfonts}
+\usepackage{stfloats}
+\usepackage{bm}
+\usepackage{cite}
+\usepackage{cases}
+\usepackage{subfig}
+
+\usepackage{longtable}
+\usepackage{multirow}
+
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{steinmetz}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{verbatim}
+\usepackage{tfrupee}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{graphicx}
+\usepackage{tkz-euclide}
+\usetikzlibrary{shapes,backgrounds}
+\usepackage{verbatim}
+\usetikzlibrary{calc,math}
+\usepackage{listings}
+    \usepackage{color}                                            %%
+    \usepackage{array}                                            %%
+    \usepackage{longtable}                                        %%
+    \usepackage{calc}                                             %%
+    \usepackage{multirow}                                         %%
+    \usepackage{hhline}                                           %%
+    \usepackage{ifthen}                                           %%
+    \usepackage{lscape}     
+\usepackage{multicol}
+\usepackage{chngcntr}
+\usepackage{mdframed}
+\DeclareMathOperator*{\Res}{Res}
+
+\renewcommand\thesection{\arabic{section}}
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+\renewcommand\thesubsubsection{\thesubsection.\arabic{subsubsection}}
+
+\renewcommand\thesectiondis{\arabic{section}}
+\renewcommand\thesubsectiondis{\thesectiondis.\arabic{subsection}}
+\renewcommand\thesubsubsectiondis{\thesubsectiondis.\arabic{subsubsection}}
+
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+\def\inputGnumericTable{}                                 %%
+
+\lstset{
+%language=C,
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+
+\title{AI5002}
+\author{TUHIN DUTTA}
+\date{January 2021}
+
+\begin{document}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{example}{Example}[section]
+\newtheorem{definition}[problem]{Definition}
+
+\newcommand{\BEQA}{\begin{eqnarray}}
+\newcommand{\EEQA}{\end{eqnarray}}
+\newcommand{\define}{\stackrel{\triangle}{=}}
+\bibliographystyle{IEEEtran}
+\raggedbottom
+\setlength{\parindent}{0pt}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+
+\providecommand{\res}[1]{\Res\displaylimits_{#1}} 
+
+%\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+%\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+	%\newcommand{\solution}[2]{\textbf{Solution:}{#1}}
+\newcommand{\solution}{\noindent \textbf{Solution: }}
+\newcommand{\cosec}{\,\text{cosec}\,}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
+\numberwithin{equation}{subsection}
+\makeatletter
+\@addtoreset{figure}{problem}
+\makeatother
+\let\StandardTheFigure\thefigure
+\let\vec\mathbf
+\renewcommand{\thefigure}{\theproblem}
+\def\putbox#1#2#3{\makebox[0in][l]{\makebox[#1][l]{}\raisebox{\baselineskip}[0in][0in]{\raisebox{#2}[0in][0in]{#3}}}}
+     \def\rightbox#1{\makebox[0in][r]{#1}}
+     \def\centbox#1{\makebox[0in]{#1}}
+     \def\topbox#1{\raisebox{-\baselineskip}[0in][0in]{#1}}
+     \def\midbox#1{\raisebox{-0.5\baselineskip}[0in][0in]{#1}}
+\vspace{3cm}
+\title{AI5002 - Assignment 10}
+\author{Tuhin Dutta\\ ai21mtech02002}
+\maketitle
+\newpage
+\bigskip
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\begin{mdframed}
+Download code and LaTeX from below hyperlinks\\
+1. \href{https://github.com/Tauhait/AI5002/blob/main/Assignment-10/Code/GATE\_11.py}{Code/GATE\_11.py}
+
+
+2. \href{https://github.com/Tauhait/AI5002/tree/main/Assignment-10/LaTeX}{LaTeX}
+\end{mdframed}
+\subsection*{\boldsymbol{Problem\ GATE11}}
+The probability that a given positive integer
+lying between 1 and 100 (both inclusive) is
+NOT divisible by 2, 3 or 5 is.....
+
+\subsection*{\boldsymbol{Solution}}\\
+Number of positive integers lying between 1 and 100 (both inclusive) is given by the set S.\\n(S) = 100\\
+\\
+Let us define a random variable A as `Integers between 1 and 100 (both inclusive) divisible by 2'. The sample space defined by A is given by - \\
+$A = \{\\
+2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28,\\
+30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54,\\
+56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80,\\
+82, 84, 86, 88, 90, 92, 94, 96, 98, 100 \} $\\
+\\
+\begin{align}
+    Pr(A=x) =
+    \begin{cases}
+        \frac{1}{50} & x \in A \\
+        0 & otherwise
+    \end{cases}
+\end{align}
+\\
+Let us define a random variable B as `Integers between 1 and 100 (both inclusive) divisible by 3'. The sample space defined by B is given by - \\
+$B = \{\\
+3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42,\\
+45, 48, 51, 54, 57, 60, 63, 66, 69, 72, 75, 78, 81, \\
+84, 87, 90, 93, 96, 99 \} $\\
+\begin{align}
+    Pr(B=x) =
+    \begin{cases}
+        \frac{1}{33} & x \in B \\
+        0 & otherwise
+    \end{cases}
+\end{align}
+\\
+Let us define a random variable C as `Integers between 1 and 100 (both inclusive) divisible by 5'. The sample space defined by C is given by - \\
+$C = \{\\
+5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, \\
+75, 80, 85, 90, 95, 100 \} $\\
+\begin{align}
+    Pr(C=x) =
+    \begin{cases}
+        \frac{1}{20} & x \in C \\
+        0 & otherwise
+    \end{cases}
+\end{align}
+\\
+Let us define a random variable AC as `Integers between 1 and 100 (both inclusive) divisible by 2 and 5 or 10'. The sample space defined by AC is given by - \\
+The sample space is given by - \\
+$AC = \{ 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 \} $\\
+\begin{align}
+    Pr(AC=x) =
+    \begin{cases}
+        \frac{1}{10} & x \in AC \\
+        0 & otherwise
+    \end{cases}
+\end{align}
+\\
+Let us define a random variable AB as `Integers between 1 and 100 (both inclusive) divisible by 2 and 3 or 6'. The sample space defined by AB is given by - \\
+$AB = \{\\
+6, 12, 18, 24, 30, 36, 42, 48, 54, 60, 66, 72, 78,\\
+84, 90, 96 \} $\\
+\begin{align}
+    Pr(AB=x) =
+    \begin{cases}
+        \frac{1}{16} & x \in AB \\
+        0 & otherwise
+    \end{cases}
+\end{align}
+\\
+Let us define a random variable BC as `Integers between 1 and 100 (both inclusive) divisible by 3 and 5 or 15'. The sample space defined by BC is given by - \\
+$BC = \{ 15, 30, 45, 60, 75, 90 \} $\\
+\begin{align}
+    Pr(BC=x) =
+    \begin{cases}
+        \frac{1}{6} & x \in BC \\
+        0 & otherwise
+    \end{cases}
+\end{align}
+\\
+Let us define a random variable ABC as `Integers between 1 and 100 (both inclusive) divisible by 2, 3 and 5 or 30'. The sample space defined by ABC is given by - \\
+$ABC = \{ 30, 60, 90\}$\\
+\begin{align}
+    Pr(ABC=x) =
+    \begin{cases}
+        \frac{1}{3} & x \in ABC \\
+        0 & otherwise
+    \end{cases}
+\end{align}
+\\
+From inclusion-exclusion principle we know, \\
+\begin{multline}
+    \pr{A + B + C} = \pr{A} + \pr{B} + \pr{C}\\ - \pr{AB} - \pr{AC} - \pr{BC} + \pr{ABC}\\
+\end{multline}
+\begin{multline}
+    \pr{A + B + C} = \dfrac{50}{100} + \dfrac{33}{100} + \dfrac{20}{100} -\\ \dfrac{16}{100} - \dfrac{10}{100} - \dfrac{6}{100} + \dfrac{3}{100} = \dfrac{74}{100} = 0.74\\
+\end{multline}
+%The sample space is given by -\\
+% = \{ \\
+% 2, 3, 4, 5, 6, 8, 9, 10, 12, 14, 15, 16, 18,\\
+% 20, 21, 22, 24, 25, 26, 27, 28, 30, 32, 33,\\
+% 34, 35, 36, 38, 39, 40, 42, 44, 45, 46, 48,\\
+% 50, 51, 52, 54, 55, 56, 57, 58, 60, 62, 63,\\
+% 64, 65, 66, 68, 69, 70, 72, 74, 75, 76, 78,\\
+% 80, 81, 82, 84, 85, 86, 87, 88, 90, 92, 93,\\
+% 94, 95, 96, 98, 99, 100 \}\\
+\\
+Let us define a random variable X as `Integers between 1 and 100 (both inclusive) NOT divisible by 2, 3, or 5'.\\
+\\
+The sample space is given by -\\
+= \{\\
+1, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 49,\\
+53, 59, 61, 67, 71, 73, 77, 79, 83, 89, 91, 97\\
+\}\\
+\\
+The probability of X is given by - \\
+\begin{multline}
+    \pr{X} = 1 - \pr{A + B + C} = 1 - 0.74 = 0.26\\
+\end{multline}
+\end{document}
