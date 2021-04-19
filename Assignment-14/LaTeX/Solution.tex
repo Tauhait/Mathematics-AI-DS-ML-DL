@@ -1,0 +1,267 @@
+\documentclass[journal,12pt,twocolumn]{IEEEtran}
+\usepackage{setspace}
+\usepackage{gensymb}
+\singlespacing
+\usepackage[cmex10]{amsmath}
+
+\usepackage{amsthm}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\urlstyle{same}
+\usepackage{mathrsfs}
+\usepackage{txfonts}
+\usepackage{stfloats}
+\usepackage{bm}
+\usepackage{cite}
+\usepackage{cases}
+\usepackage{subfig}
+
+\usepackage{longtable}
+\usepackage{multirow}
+
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{steinmetz}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{verbatim}
+\usepackage{tfrupee}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{graphicx}
+\usepackage{tkz-euclide}
+\usetikzlibrary{shapes,backgrounds}
+\usepackage{verbatim}
+\usetikzlibrary{calc,math}
+\usepackage{listings}
+    \usepackage{color}                                            %%
+    \usepackage{array}                                            %%
+    \usepackage{longtable}                                        %%
+    \usepackage{calc}                                             %%
+    \usepackage{multirow}                                         %%
+    \usepackage{hhline}                                           %%
+    \usepackage{ifthen}                                           %%
+    \usepackage{lscape}     
+\usepackage{multicol}
+\usepackage{chngcntr}
+\usepackage{mdframed}
+\DeclareMathOperator*{\Res}{Res}
+
+\renewcommand\thesection{\arabic{section}}
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+\renewcommand\thesubsubsection{\thesubsection.\arabic{subsubsection}}
+
+\renewcommand\thesectiondis{\arabic{section}}
+\renewcommand\thesubsectiondis{\thesectiondis.\arabic{subsection}}
+\renewcommand\thesubsubsectiondis{\thesubsectiondis.\arabic{subsubsection}}
+
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+\def\inputGnumericTable{}                                 %%
+
+\lstset{
+%language=C,
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+
+\title{AI5002}
+\author{TUHIN DUTTA}
+\date{January 2021}
+
+\begin{document}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{problem}{Problem}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{example}{Example}[section]
+\newtheorem{definition}[problem]{Definition}
+
+\newcommand{\BEQA}{\begin{eqnarray}}
+\newcommand{\EEQA}{\end{eqnarray}}
+\newcommand{\define}{\stackrel{\triangle}{=}}
+\bibliographystyle{IEEEtran}
+\raggedbottom
+\setlength{\parindent}{0pt}
+\providecommand{\mbf}{\mathbf}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\qfunc}[1]{\ensuremath{Q\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\providecommand{\lsbrak}[1]{\ensuremath{{}\left[#1\right.}}
+\providecommand{\rsbrak}[1]{\ensuremath{{}\left.#1\right]}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\lbrak}[1]{\ensuremath{\left(#1\right.}}
+\providecommand{\rbrak}[1]{\ensuremath{\left.#1\right)}}
+\providecommand{\cbrak}[1]{\ensuremath{\left\{#1\right\}}}
+\providecommand{\lcbrak}[1]{\ensuremath{\left\{#1\right.}}
+\providecommand{\rcbrak}[1]{\ensuremath{\left.#1\right\}}}
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+
+\providecommand{\res}[1]{\Res\displaylimits_{#1}} 
+
+%\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\mtx}[1]{\mathbf{#1}}
+\providecommand{\fourier}{\overset{\mathcal{F}}{ \rightleftharpoons}}
+%\providecommand{\hilbert}{\overset{\mathcal{H}}{ \rightleftharpoons}}
+\providecommand{\system}{\overset{\mathcal{H}}{ \longleftrightarrow}}
+	%\newcommand{\solution}[2]{\textbf{Solution:}{#1}}
+\newcommand{\solution}{\noindent \textbf{Solution: }}
+\newcommand{\cosec}{\,\text{cosec}\,}
+\providecommand{\dec}[2]{\ensuremath{\overset{#1}{\underset{#2}{\gtrless}}}}
+\newcommand{\myvec}[1]{\ensuremath{\begin{pmatrix}#1\end{pmatrix}}}
+\newcommand{\mydet}[1]{\ensuremath{\begin{vmatrix}#1\end{vmatrix}}}
+\numberwithin{equation}{subsection}
+\makeatletter
+\@addtoreset{figure}{problem}
+\makeatother
+\let\StandardTheFigure\thefigure
+\let\vec\mathbf
+\renewcommand{\thefigure}{\theproblem}
+\def\putbox#1#2#3{\makebox[0in][l]{\makebox[#1][l]{}\raisebox{\baselineskip}[0in][0in]{\raisebox{#2}[0in][0in]{#3}}}}
+     \def\rightbox#1{\makebox[0in][r]{#1}}
+     \def\centbox#1{\makebox[0in]{#1}}
+     \def\topbox#1{\raisebox{-\baselineskip}[0in][0in]{#1}}
+     \def\midbox#1{\raisebox{-0.5\baselineskip}[0in][0in]{#1}}
+\vspace{3cm}
+\title{AI5002 - Assignment 14}
+\author{Tuhin Dutta\\ ai21mtech02002}
+\maketitle
+\newpage
+\bigskip
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\begin{mdframed}
+Download code and LaTeX from below hyperlinks\\
+1. \href{https://github.com/Tauhait/AI5002/tree/main/Assignment-14/LaTeX}{LaTeX}
+\end{mdframed}
+\subsection*{\boldsymbol{Problem\ \textbf{NET\_JUNE\_2012\_Q104}}}
+Which of the following conditions imply independence of the random variables X
+and Y ?\\
+\begin{enumerate}
+    \item \tag{1} p(X $\mathop{>}$ a $|$ Y $\mathop{>}$ a) = P(X $\mathop{>}$ a) for all a $\in\ \mathbb{R}$\\ 
+    \item \tag{2} p(X $\mathop{>}$ a $|$ Y $\mathop{<}$ b) = P(X $\mathop{>}$ a) for all a, b $\in\ \mathbb{R}$\\
+    \item \tag{3} X and Y are uncorrelated.\\
+    \item \tag{4} $E[(X-a)(Y-b)] = E(X-a)\ E(Y-b)\ \forall\ a,\ b \in\ \mathbb{R}$\\
+\end{enumerate}
+\subsection*{\boldsymbol{Solution}}
+We analyze the options one by one and see which option best implies that random variables X and Y are independent. \\
+
+In case of option (1)\\
+Let's assume continuous r.v.s X and Y are not independent and, \\
+\begin{align}\tag{1}
+    \begin{split}
+        X \in \{0, 1\}\\
+        Y = X + 2\\
+        \pr{X=0} = \pr{X=1} = \dfrac{1}{2}\\
+    \end{split}
+\end{align}
+Now since Y is always greater than X therefore $\pr{X>a \;| Y>a}$ equals $\pr{X > a}\ \forall\ a\ \in \mathbb{R}$ and thus in spite of the option (1) being true, it fails to imply that X and Y are independent random variables and hence option (1) is false.\\
+
+In case of option (2),\\
+Let us denote the cumulative distribution functions of $X$, $Y$ and $(X, Y)$, as below,\\
+\begin{align}\tag{2}
+    \begin{split}
+        F_X(a) &= P(X \leq a),\\
+        F_Y(b) &= P(Y \leq b)\ and \\
+        F_{X,Y}(a,b) &= P(X \leq a \mbox{ and } Y \leq b) 
+    \end{split}
+\end{align}
+To show independence, we want to prove that,
+\begin{align}\tag{3}
+    \begin{split}
+        F_X(a)F_Y(b) = F_{X, Y}(a,b)\ \forall\ a,\ b\ \in \mathbb{R}
+    \end{split}
+\end{align}
+Conditional probability tells us that: 
+\begin{align}\tag{4}
+    \begin{split}
+        P(X > a | Y < b) = \frac{P(X > a \mbox{ and } Y < b)}{P(Y < b)}
+    \end{split}
+\end{align}
+and so by the assumptions of the option (1),
+\begin{align}\tag{5}
+    \begin{split}
+        P(X > a) &= \frac{P(X > a \mbox{ and } Y < b)}{P(Y < b)}\\
+        P(X > a)P(Y < b) &= P(X > a \mbox{ and } Y < b)
+    \end{split}
+\end{align}
+Now since 
+\begin{align}\tag{6}
+    \begin{split}
+        P(X > a) &= 1 - F_X(a)\ and,\\
+        P(Y < b) &= F_Y(b)
+    \end{split}
+\end{align}
+we may rewrite the above equation as:
+\begin{align}\tag{7}
+    \begin{split}
+        F_Y(b) - F_X(a)F_Y(b) &= P(X > a \mbox{ and } Y < b)\\
+        F_X(a)F_Y(b) &= F_Y(b) - P(X > a \mbox{ and } Y < b)
+    \end{split}
+\end{align}
+Also, note that 
+\begin{align}\tag{8}
+    \begin{split}
+        F_Y(b) = P(X > a \mbox{ and } Y < b) + P(X < a \mbox{ and } Y < b)
+    \end{split}
+\end{align}
+Thus putting value of $F_Y(b)$ from (8) into (7) proves (2) ,
+\begin{align}\tag{9}
+    \begin{split}
+        F_X(a)F_Y(b) &= P(X < a \mbox{ and } Y < b)\\
+    \end{split}
+\end{align}\\
+Thus option (2) seems to be always true.\\
+
+In case of option (3),\\
+Given random variables X and Y are uncorrelated which means that their correlation is 0, or, equivalently, Cov(X, Y) = 0.\\
+\begin{align}\tag{10}
+    \begin{split}
+        Cov(X, Y) &= E[XY] - E[X]E[Y]\\
+        &[\because Cov(X, Y) = 0]\\
+        E[XY] &= E[X]E[Y]
+    \end{split}
+\end{align}
+
+We have to prove that uncorrelated implies independence.\\
+Let’s take $X$ and $Y$ to exist as an ordered pair at the points (-1,1), (0,0), and (1,1) with probabilities $\dfrac{1}{4}$,$\dfrac{1}{2}$, and $\dfrac{1}{4}$. The expected values of X and Y is\\
+\begin{align}\tag{11}
+    \begin{split}
+        E[X] = -1\cdot\dfrac{1}{4} + 0\cdot\dfrac{1}{2} + 1\cdot\dfrac{1}{4} = 0 = E[Y]\\
+        E[XY] = -1\cdot\dfrac{1}{4} + 0\cdot\dfrac{1}{2} + 1\cdot\dfrac{1}{4} = 0 = E[X]E[Y]
+    \end{split}
+\end{align}\\
+
+Now let's look at the marginal distributions of $X$ and $Y$. $X$ and $Y$ both take on the values $-1,\ 0,\ 1$ and the probability it takes for each of those are given by $\dfrac{1}{4},\ \dfrac{1}{2},\ \dfrac{1}{4}$. Then looping through the possibilities, we have to check if $$P(X=x, Y=y) = P(X=x) P(Y=y)$$\\
+Let's take the first point (-1, 1) and examine,\\
+\begin{align}\tag{12}
+    \begin{split}
+        P(X=-1, Y=1) = \dfrac{1}{4} \ne \dfrac{1}{16} = P(X=-1)\ P(Y=1)
+    \end{split}
+\end{align}
+We loop through the other two points, and see that X and Y do not meet the definition of independent.\\
+Thus it proves that uncorrelated random variables are not always independent. Hence option (3) is false.\\
+
+In case of option (4),we have
+\begin{align}\tag{13}
+    E[(X-a)(Y-b)] &= E[XY] - aE[Y] - bE[X] + ab
+\end{align}
+Also,
+\begin{align}\tag{14}
+    E(X-a) E(Y-b) &= E[X]E[Y] - aE[Y] - bE[X] + ab
+\end{align}
+We see (13) = (14), i.e. independent iff\\
+$E[XY] = E[X] E[Y]$ but in this case independence of X and Y cannot be inferred. Hence option (4) is false.
+\end{document}
