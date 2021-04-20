@@ -150,9 +150,9 @@ Download code and LaTeX from below hyperlinks\\
 Which of the following conditions imply independence of the random variables X
 and Y ?\\
 \begin{enumerate}
-    \item \tag{1} p(X $\mathop{>}$ a $|$ Y $\mathop{>}$ a) = P(X $\mathop{>}$ a) for all a $\in\ \mathbb{R}$\\ 
-    \item \tag{2} p(X $\mathop{>}$ a $|$ Y $\mathop{<}$ b) = P(X $\mathop{>}$ a) for all a, b $\in\ \mathbb{R}$\\
-    \item \tag{3} X and Y are uncorrelated.\\
+    \item \tag{1} $\pr{X\ \mathop{>}\ a|Y\ \mathop{>}\ a} = \pr{X\ \mathop{>}\ a}\ \forall\ a\ \in\ \mathbb{R}$\\ 
+    \item \tag{2} $\pr{X\ \mathop{>}\ a|Y\ \mathop{<}\ b} = \pr{X\ \mathop{>}\ a}\ \forall\ a,\ b\ \in\ \mathbb{R}$\\ 
+    \item \tag{3} $X$ and $Y$ are uncorrelated.\\
     \item \tag{4} $E[(X-a)(Y-b)] = E(X-a)\ E(Y-b)\ \forall\ a,\ b \in\ \mathbb{R}$\\
 \end{enumerate}
 \subsection*{\boldsymbol{Solution}}
@@ -161,18 +161,18 @@ We analyze the options one by one and see which option best implies that random 
     \item Let's assume continuous r.v.s X and Y are not independent and, \\
 \begin{align}\tag{1}
     \begin{split}
-        X \in \{0, 1\}\\
-        Y = X + 2\\
-        \pr{X=0} = \pr{X=1} = \dfrac{1}{2}\\
+        X &\in \{0, 1\}\\
+        Y &= X + 2\\
+        \pr{X=0} &= \pr{X=1} = \dfrac{1}{2}\\
     \end{split}
 \end{align}
 Now since Y is always greater than X therefore $\pr{X>a \;| Y>a}$ equals $\pr{X > a}\ \forall\ a\ \in \mathbb{R}$ and thus in spite of the option (1) being true, it fails to imply that X and Y are independent random variables and hence option (1) is false.\\
     \item Let us denote the cumulative distribution functions of $X$, $Y$ and $(X, Y)$, as below,\\
 \begin{align}\tag{2}
     \begin{split}
-        F_X(a) &= P(X \leq a),\\
-        F_Y(b) &= P(Y \leq b)\ and \\
-        F_{X,Y}(a,b) &= P(X \leq a \mbox{ and } Y \leq b) 
+        F_X(a) &= \pr{X \leq a},\\
+        F_Y(b) &= \pr{Y \leq b}\ and \\
+        F_{X,Y}(a,b) &= \pr{X \leq a \mbox{ and } Y \leq b}
     \end{split}
 \end{align}
 To show independence, we want to prove that,
@@ -184,40 +184,40 @@ To show independence, we want to prove that,
 Conditional probability tells us that: 
 \begin{align}\tag{4}
     \begin{split}
-        P(X > a | Y < b) = \frac{P(X > a \mbox{ and } Y < b)}{P(Y < b)}
+        \pr{X > a | Y < b} = \frac{\pr{X > a \mbox{ and } Y < b}}{\pr{Y < b}}
     \end{split}
 \end{align}
 and so by the assumptions of the option (1),
 \begin{align}\tag{5}
     \begin{split}
-        P(X > a) &= \frac{P(X > a \mbox{ and } Y < b)}{P(Y < b)}\\
-        P(X > a)P(Y < b) &= P(X > a \mbox{ and } Y < b)
+        \pr{X > a} &= \frac{\pr{X > a \mbox{ and } Y < b}}{\pr{Y < b}}\\
+        \pr{X > a}\pr{Y < b} &= \pr{X > a \mbox{ and } Y < b}
     \end{split}
 \end{align}
 Now since 
 \begin{align}\tag{6}
     \begin{split}
-        P(X > a) &= 1 - F_X(a)\ and,\\
-        P(Y < b) &= F_Y(b)
+        \pr{X > a} &= 1 - F_X(a)\ and,\\
+        \pr{Y < b} &= F_Y(b)
     \end{split}
 \end{align}
 we may rewrite the above equation as:
 \begin{align}\tag{7}
     \begin{split}
-        F_Y(b) - F_X(a)F_Y(b) &= P(X > a \mbox{ and } Y < b)\\
-        F_X(a)F_Y(b) &= F_Y(b) - P(X > a \mbox{ and } Y < b)
+        F_Y(b) - F_X(a)F_Y(b) &= \pr{X > a \mbox{ and } Y < b}\\
+        F_X(a)F_Y(b) &= F_Y(b) - \pr{X > a \mbox{ and } Y < b}
     \end{split}
 \end{align}
 Also, note that 
 \begin{align}\tag{8}
     \begin{split}
-        F_Y(b) = P(X > a \mbox{ and } Y < b) + P(X < a \mbox{ and } Y < b)
+        F_Y(b) = \pr{X > a \mbox{ and } Y < b} + \pr{X < a \mbox{ and } Y < b}
     \end{split}
 \end{align}
 Thus putting value of $F_Y(b)$ from (8) into (7) proves (2) ,
 \begin{align}\tag{9}
     \begin{split}
-        F_X(a)F_Y(b) &= P(X < a \mbox{ and } Y < b)\\
+        F_X(a)F_Y(b) &= \pr{X < a \mbox{ and } Y < b}\\
     \end{split}
 \end{align}\\
 Thus option (2) seems to be always true.\\
@@ -239,22 +239,27 @@ Let’s take $X$ and $Y$ to exist as an ordered pair at the points (-1,1), (0,0)
     \end{split}
 \end{align}\\
 
-Now let's look at the marginal distributions of $X$ and $Y$. $X$ and $Y$ both take on the values $-1,\ 0,\ 1$ and the probability it takes for each of those are given by $\dfrac{1}{4},\ \dfrac{1}{2},\ \dfrac{1}{4}$. Then looping through the possibilities, we have to check if $$P(X=x, Y=y) = P(X=x) P(Y=y)$$\\
+Now let's look at the marginal distributions of $X$ and $Y$. $X$ and $Y$ both take on the values $-1,\ 0,\ 1$ and the probability it takes for each of those are given by $\dfrac{1}{4},\ \dfrac{1}{2},\ \dfrac{1}{4}$. Then looping through the possibilities, we have to check if $$\pr{X=x, Y=y} = \pr{X=x}\pr{Y=y}$$\\
 Let's take the first point (-1, 1) and examine,\\
 \begin{align}\tag{12}
     \begin{split}
-        P(X=-1, Y=1) = \dfrac{1}{4} \ne \dfrac{1}{16} = P(X=-1)\ P(Y=1)
+        \pr{X=-1, Y=1} = \dfrac{1}{4} \ne\\ \dfrac{1}{16} = \pr{X=-1}\pr{Y=1}
     \end{split}
 \end{align}
+
 We loop through the other two points, and see that X and Y do not meet the definition of independent.\\
 Thus it proves that uncorrelated random variables are not always independent. Hence option (3) is false.\\
     \item We extend L.H.S and R.H.S to compare,
-    \begin{align}\tag{13}
-    E[(X-a)(Y-b)] &= E[XY] - aE[Y] - bE[X] + ab
+\begin{align}\tag{13}
+    \begin{split}
+        E[(X-a)(Y-b)] = E[XY]\\ - aE[Y] - bE[X] + ab
+    \end{split}
 \end{align}
 Also,
 \begin{align}\tag{14}
-    E(X-a) E(Y-b) &= E[X]E[Y] - aE[Y] - bE[X] + ab
+    \begin{split}
+        E(X-a) E(Y-b) = E[X]E[Y]\\ - aE[Y] - bE[X] + ab
+    \end{split}
 \end{align}
 We see (13) = (14), i.e. independent iff\\
 $E[XY] = E[X] E[Y]$ but in this case independence of X and Y cannot be inferred. Hence option (4) is false.
