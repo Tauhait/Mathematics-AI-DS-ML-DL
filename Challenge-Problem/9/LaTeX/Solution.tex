@@ -147,33 +147,55 @@ Download code and LaTeX from below hyperlinks\\
 1. \href{https://github.com/Tauhait/AI5002/tree/main/Challenge-Problem/9/LaTeX}{LaTeX}
 \end{mdframed}
 \subsection*{\boldsymbol{Problem\ \textbf{IES\_ISS\_2015\_stat1\_Q3c}}}
-Two points are chosen on a line of unit length.Find the probability that each of the 3 line segments will have length greater than $\dfrac{1}{4}$?
+Two points are chosen on a line of unit length. Find the probability that each of the 3 line segments will have length greater than $\dfrac{1}{4}$?
 \subsection*{\boldsymbol{Solution}}
-We can choose one point $X$, and then a second point $Y$. We assume that at random means here that the distributions of $X$ and $Y$ are uniform on $[0,1]$ and that $X$ and $Y$ are independent.
-
-We want the probability such that 
-\begin{align}\tag{1}
-    \begin{split}
-        1/4 < X < 3/4,\\
-        1/4 < Y < 3/4,\\
-        |X-Y| >  1/4.
-    \end{split}
-\end{align}
 \begin{figure}[h!]
-    \includegraphics[width=\columnwidth]{Challenge-Problem/9/Figure/Square.png}
-    \centering \caption*{Fig 1.0: Unit Square}
+    \includegraphics[width=\columnwidth]{Challenge-Problem/9/Figure/LineSeq2.png}
+    \centering \caption*{Fig 1: Line Segment}
 \end{figure}
+We can choose two points randomly say $P_1$, and $P_2$. Let the length of the first segment from 0 to $P_1$ be $X$, length of the second segment from $P_1$ to $P_2$ be $Y$, and length of the third segment from $P_2$ to $1$ be $1-X-Y$.
 
-A unit square $S$ is drawn in Fig. 1.0 along with the dotted lines ($x=1/4$, $x=3/4$), ($y=1/4$, $y=3/4$) and the two lines $x-y=\pm 1/4$.\\ 
-
-We want to find the probability that $(X,Y)$ lands in the part of $S$ that is not in between these two lines. That consists of two isosceles right-angled triangles marked by the solid lines inside square S in Fig 1.0.\\
-
-Each of these triangles has legs $\dfrac{1}{4}$, so their combined area is
+We want the length of each of the segments to be
+\begin{align}\tag{1}
+    X & > \dfrac{1}{4}
+\end{align}
 \begin{align}\tag{2}
+    Y & > \dfrac{1}{4}
+\end{align}
+\begin{align}\tag{3}
+    1-X-Y & > \dfrac{1}{4}\ or\ X + Y < \dfrac{3}{4}
+\end{align}
+Let us plot these three inequalities (1), (2), and (3) in the X-Y plane as shown in Fig 2.
+\begin{figure}[h!]
+    \includegraphics[width=\columnwidth]{Challenge-Problem/9/Figure/LineSeq1.png}
+    \centering \caption*{Fig 2: Favourable and Total Area}
+\end{figure}
+From figure 2 we see that all three inequalities are satisfied in the highlighted area marked by A, B and C.\\
+$\therefore$
+\begin{align}\tag{4}
     \begin{split}
-        2\cdot\dfrac{1}{2}\cdot\dfrac{1}{4}\cdot\dfrac{1}{4} = \dfrac{1}{16}
+        Favourable\ Area &= \dfrac{1}{2}\cdot\text{BASE}\cdot\text{HEIGHT}\\
+                        &= \dfrac{1}{2}\cdot(B-A)\cdot(C-A)\\
+                        &= \dfrac{1}{2}\cdot(\dfrac{1}{2}-\dfrac{1}{4})\cdot(\dfrac{1}{2}-\dfrac{1}{4})\\
+                        &= \dfrac{1}{32}
     \end{split}
 \end{align}
-
-Since the ordered pair $(X,Y)$ has uniform distribution on the full square, so probability is $\dfrac{1}{16}$.
+Now to calculate the sample space or total area we have is the triangle with points at (0, 0), (0,1), and (1, 0).\\
+$\therefore$
+\begin{align}\tag{5}
+    \begin{split}
+        Total\ Area &= \dfrac{1}{2}\cdot\text{BASE}\cdot\text{HEIGHT}\\
+                        &= \dfrac{1}{2}\cdot(1-0)\cdot(1-0)\\
+                        &= \dfrac{1}{2}
+    \end{split}
+\end{align}
+$\therefore$
+\begin{align}\tag{6}
+    \begin{split}
+        &\pr{X > \dfrac{1}{4}\ and\ Y > \dfrac{1}{4} and\ X + Y < \dfrac{3}{4}}\\
+    &= \dfrac{\text{Favourable\ Area}}{\text{Total\  Area}}\\
+    &= \dfrac{1/32}{1/2}\\
+    &= \dfrac{1}{16}
+\end{split}
+\end{align}
 \end{document}
