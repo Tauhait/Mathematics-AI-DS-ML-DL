@@ -172,7 +172,7 @@ Now since Y is always greater than X therefore $\pr{X>a \;| Y>a}$ equals $\pr{X 
     \begin{split}
         F_X(a) &= \pr{X \leq a},\\
         F_Y(b) &= \pr{Y \leq b}\ and \\
-        F_{X,Y}(a,b) &= \pr{X \leq a \mbox{ and } Y \leq b}
+        F_{X,Y}(a,b) &= \pr{X \leq a, Y \leq b}
     \end{split}
 \end{align}
 To show independence, we want to prove that,
@@ -184,14 +184,14 @@ To show independence, we want to prove that,
 Conditional probability tells us that: 
 \begin{align}\tag{4}
     \begin{split}
-        \pr{X > a | Y < b} = \frac{\pr{X > a \mbox{ and } Y < b}}{\pr{Y < b}}
+        \pr{X > a | Y < b} = \frac{\pr{X > a, Y < b}}{\pr{Y < b}}
     \end{split}
 \end{align}
 and so by the assumptions of the option (1),
 \begin{align}\tag{5}
     \begin{split}
-        \pr{X > a} &= \frac{\pr{X > a \mbox{ and } Y < b}}{\pr{Y < b}}\\
-        \pr{X > a}\pr{Y < b} &= \pr{X > a \mbox{ and } Y < b}
+        \pr{X > a} &= \frac{\pr{X > a, Y < b}}{\pr{Y < b}}\\
+        \pr{X > a}\pr{Y < b} &= \pr{X > a, Y < b}
     \end{split}
 \end{align}
 Now since 
@@ -201,28 +201,42 @@ Now since
         \pr{Y < b} &= F_Y(b)
     \end{split}
 \end{align}
-we may rewrite the above equation as:
+We may rewrite the above equation as:
 \begin{align}\tag{7}
     \begin{split}
-        F_Y(b) - F_X(a)F_Y(b) &= \pr{X > a \mbox{ and } Y < b}\\
-        F_X(a)F_Y(b) &= F_Y(b) - \pr{X > a \mbox{ and } Y < b}
+        F_Y(b) - F_X(a)F_Y(b) &= \pr{X > a, Y < b}\\
+        F_X(a)F_Y(b) &= F_Y(b) - \pr{X > a, Y < b}
     \end{split}
 \end{align}
-Also, note that 
+Note that since $X$ is continuous so we can write, $$P(X \leq a) = P(X < a)$$
+Regardless of the value of $X$ the marginal C.D.F $F_Y$(b) is given by
+$$F_Y(b) = \pr{Y < b}$$
+Now let us define two events $$Event\ A: (Y < b \cap X < a)$$ $$Event\ B: (Y < b \cap X > a)$$
+We can also think of the event (Y $\mathop{<}$ b) as $$ (Y < b) = (\text{Event A}) \cup (\text{Event B})$$
+So $$\pr{A, B} = \pr{Y < b}$$ Since $X$ cannot both be less than a and greater than a, we have 
 \begin{align}\tag{8}
     \begin{split}
-        F_Y(b) = \pr{X > a \mbox{ and } Y < b} + \pr{X < a \mbox{ and } Y < b}
+        \pr{A, B} &= \pr{A} + \pr{B}\\
+                  &= \pr{Y < b, X < a} +\\
+                  &\ \ \ \ \pr{Y < b, X > a}
     \end{split}
 \end{align}
-Thus putting value of $F_Y(b)$ from (8) into (7) proves (2) ,
+$\therefore$ We can write
 \begin{align}\tag{9}
+    \begin{split}
+        F_Y(b) = \pr{X > a, Y < b} +\\
+                 \pr{X < a, Y < b}
+    \end{split}
+\end{align}
+Thus putting value of $F_Y(b)$ from (9) into (7) proves (2) ,
+\begin{align}\tag{10}
     \begin{split}
         F_X(a)F_Y(b) &= \pr{X < a \mbox{ and } Y < b}\\
     \end{split}
 \end{align}\\
 Thus option (2) seems to be always true.\\
     \item Given random variables X and Y are uncorrelated which means that their correlation is 0, or, equivalently, Cov(X, Y) = 0.\\
-\begin{align}\tag{10}
+\begin{align}\tag{11}
     \begin{split}
         Cov(X, Y) &= E[XY] - E[X]E[Y]\\
         &[\because Cov(X, Y) = 0]\\
@@ -243,7 +257,7 @@ Now let's look at the marginal distributions of $X$ and $Y$. $X$ and $Y$ both ta
 Let's take the first point (-1, 1) and examine,\\
 \begin{align}\tag{12}
     \begin{split}
-        \pr{X=-1, Y=1} = \dfrac{1}{4} \ne\\ \dfrac{1}{16} = \pr{X=-1}\pr{Y=1}
+        &\pr{X=-1, Y=1} = \dfrac{1}{4}\\ &\ne \dfrac{1}{16} = \pr{X=-1}\pr{Y=1}
     \end{split}
 \end{align}
 
