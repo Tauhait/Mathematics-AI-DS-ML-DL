@@ -157,8 +157,8 @@ and Y ?\\
 \end{enumerate}
 \subsection*{\boldsymbol{Solution}}
 We analyze the options one by one and see which option best implies that random variables X and Y are independent. \\
-
-In case of option (1)\\
+\begin{enumerate}
+    \item In case of option (1)\\
 Let's assume continuous r.v.s X and Y are not independent and, \\
 \begin{align}\tag{1}
     \begin{split}
@@ -168,8 +168,7 @@ Let's assume continuous r.v.s X and Y are not independent and, \\
     \end{split}
 \end{align}
 Now since Y is always greater than X therefore $\pr{X>a \;| Y>a}$ equals $\pr{X > a}\ \forall\ a\ \in \mathbb{R}$ and thus in spite of the option (1) being true, it fails to imply that X and Y are independent random variables and hence option (1) is false.\\
-
-In case of option (2),\\
+    \item In case of option (2),\\
 Let us denote the cumulative distribution functions of $X$, $Y$ and $(X, Y)$, as below,\\
 \begin{align}\tag{2}
     \begin{split}
@@ -224,8 +223,7 @@ Thus putting value of $F_Y(b)$ from (8) into (7) proves (2) ,
     \end{split}
 \end{align}\\
 Thus option (2) seems to be always true.\\
-
-In case of option (3),\\
+    \item In case of option (3),\\
 Given random variables X and Y are uncorrelated which means that their correlation is 0, or, equivalently, Cov(X, Y) = 0.\\
 \begin{align}\tag{10}
     \begin{split}
@@ -253,8 +251,7 @@ Let's take the first point (-1, 1) and examine,\\
 \end{align}
 We loop through the other two points, and see that X and Y do not meet the definition of independent.\\
 Thus it proves that uncorrelated random variables are not always independent. Hence option (3) is false.\\
-
-In case of option (4),we have
+    \item In case of option (4),we have
 \begin{align}\tag{13}
     E[(X-a)(Y-b)] &= E[XY] - aE[Y] - bE[X] + ab
 \end{align}
@@ -264,4 +261,5 @@ Also,
 \end{align}
 We see (13) = (14), i.e. independent iff\\
 $E[XY] = E[X] E[Y]$ but in this case independence of X and Y cannot be inferred. Hence option (4) is false.
+\end{enumerate}
 \end{document}
