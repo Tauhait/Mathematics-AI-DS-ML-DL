@@ -158,17 +158,24 @@ and Y ?\\
 \subsection*{\boldsymbol{Solution}}
 We analyze the options one by one and see which option best implies that random variables X and Y are independent. \\
 \begin{enumerate}
-    \item Let's assume continuous r.v.s X and Y are not independent and, \\
+    \item Let us take a counter example to understand if option 1) being true implies X and Y to be independent random variables, 
 \begin{align}\tag{1}
     \begin{split}
-        X &\in \{0, 1\}\\
-        Y &= X + 2\\
-        \pr{X=0} &= \pr{X=1} = \dfrac{1}{2}\\
+        Let\ X &\in \{0, 1\}\\
+        Let\ Y &= X + 2\\
+        Let\ \pr{X=0} &= \pr{X=1} = \dfrac{1}{2}\\
     \end{split}
 \end{align}
-Now since Y is always greater than X therefore $\pr{X>a \;| Y>a}$ equals $\pr{X > a}\ \forall\ a\ \in \mathbb{R}$ and thus in spite of the option (1) being true, it fails to imply that X and Y are independent random variables and hence option (1) is false.\\
-    \item Let us denote the individual C.D.F.s of the continuous random variables $X$, $Y$ and the joint C.D.F $(X, Y)$, as below,\\
+Now since Y is always greater than X, so for any given $a\in \mathbb{R}$, $X > a$ does not depend on $Y > a$, so we can write
 \begin{align}\tag{2}
+    \begin{split}
+        \pr{X>a|Y>a} = \pr{X>a}\ \forall\ a\ \in \mathbb{R}
+    \end{split}
+\end{align}
+Although the condition in option 1) is true in our example but we can see X and Y are dependent random variables. Hence option 1) does not imply X and Y to be independent.\\
+
+    \item Let us denote the individual C.D.F.s of the continuous random variables $X$, $Y$ and the joint C.D.F $(X, Y)$, as below,\\
+\begin{align}\tag{3}
     \begin{split}
         F_X(a) &= \pr{X \leq a} .= \pr{X < a},\\
         F_Y(b) &= \pr{Y \leq b} = \pr{Y < b}\ and \\
@@ -177,33 +184,33 @@ Now since Y is always greater than X therefore $\pr{X>a \;| Y>a}$ equals $\pr{X 
     \end{split}
 \end{align}
 To show independence, we want to prove that,
-\begin{align}\tag{3}
+\begin{align}\tag{4}
     \begin{split}
         F_X(a)F_Y(b) = F_{X, Y}(a,b)\ \forall\ a,\ b\ \in \mathbb{R}
     \end{split}
 \end{align}
 From conditional probability we know: 
-\begin{align}\tag{4}
+\begin{align}\tag{5}
     \begin{split}
         \pr{X > a | Y < b} = \frac{\pr{X > a, Y < b}}{\pr{Y < b}}
     \end{split}
 \end{align}
 and so using the given condition in option 2), we can write (4) as
-\begin{align}\tag{5}
+\begin{align}\tag{6}
     \begin{split}
         \pr{X > a} &= \frac{\pr{X > a, Y < b}}{\pr{Y < b}}\\
         \implies\ \pr{X > a}\pr{Y < b} &= \pr{X > a, Y < b}
     \end{split}
 \end{align}
 We can write the C.D.F as 
-\begin{align}\tag{6}
+\begin{align}\tag{7}
     \begin{split}
         \pr{X > a} &= 1 - F_X(a)\ and,\\
         \pr{Y < b} &= F_Y(b)
     \end{split}
 \end{align}
 We may rewrite (5) using (6) as:
-\begin{align}\tag{7}
+\begin{align}\tag{8}
     \begin{split}
         (1 - F_X(a))(F_Y(b)) &= \pr{X > a, Y < b}\\
         F_Y(b) - F_X(a)F_Y(b) &= \pr{X > a, Y < b}\\
@@ -211,25 +218,25 @@ We may rewrite (5) using (6) as:
     \end{split}
 \end{align}
 Note that since $X$ is continuous so we can write, 
-\begin{align}\tag{8}
+\begin{align}\tag{9}
     \pr{X \leq a} = \pr{X < a}
 \end{align}
 Regardless of the value of $X$ the marginal C.D.F $F_Y$(b) is given by
-\begin{align}\tag{9}
+\begin{align}\tag{10}
     F_Y(b) = \pr{Y < b}
 \end{align}
 Now let us define two events 
 $$Event\ A: (Y < b \cap X < a)$$ $$Event\ B: (Y < b \cap X > a)$$
 We can also think of the event (Y $\mathop{<}$ b) as 
-\begin{align}\tag{10}
+\begin{align}\tag{11}
     (Y < b) = (\text{Event A}) \cup (\text{Event B})
 \end{align}
 So it implies
-\begin{align}\tag{11}
+\begin{align}\tag{12}
     \pr{A, B} = \pr{Y < b}
 \end{align}
 Since $X$ cannot both be less than a and greater than a, we have 
-\begin{align}\tag{12}
+\begin{align}\tag{13}
     \begin{split}
         \pr{A, B} &= \pr{A} + \pr{B}\\
                   &= \pr{Y < b, X < a} +\\
@@ -237,81 +244,98 @@ Since $X$ cannot both be less than a and greater than a, we have
     \end{split}
 \end{align}
 $\therefore$ We can write
-\begin{align}\tag{13}
+\begin{align}\tag{14}
     \begin{split}
         F_Y(b) = \pr{X > a, Y < b} +\\
                  \pr{X < a, Y < b}
     \end{split}
 \end{align}
-Now putting value of $F_Y(b)$ from (13) into (7) proves (3) ,
-\begin{align}\tag{14}
+Now putting value of $F_Y(b)$ from (14) into (8) proves (4) ,
+\begin{align}\tag{15}
     \begin{split}
         F_X(a)F_Y(b) &= \pr{X < a, Y < b}\\
                      &= F_{X, Y}(a,b)
     \end{split}
 \end{align}\\
-Thus (14) imply X and Y to be independent as the joint p.d.f is the product of the two individual p.d.f. given the condition in option 2).
-So option 2) seems to be always true.\\
+Thus (15) shows that the joint C.D.F. is the product of the two individual C.D.F. Hence using the given the condition in option 2) we have proved that X and Y to be independent random variables.\\
 
     \item Given random variables X and Y are uncorrelated which means that their correlation is 0, or, equivalently, Cov(X, Y) = 0.\\
-\begin{align}\tag{15}
+\begin{align}\tag{16}
     \begin{split}
-        Cov(X, Y) &= E[XY] - E[X]E[Y]\\
+        Cov(X, Y) &= E\brak{XY} - E\brak{X}E\brak{Y}\\
         &[\because Cov(X, Y) = 0]\\
-        E[XY] &= E[X]E[Y]
+        E\brak{XY} &= E\brak{X}E\brak{Y}
     \end{split}
 \end{align}
 
 We have to prove that uncorrelated implies independence.\\
-Let’s take $X$ and $Y$ to exist as an ordered pair at the points (-1,1), (0,0), and (1,1) with probabilities $\dfrac{1}{4}$,$\dfrac{1}{2}$, and $\dfrac{1}{4}$. The expected values of X and Y is\\
-\begin{align}\tag{16}
+Let’s take $X$ and $Y$ to exist as an ordered pair at the points (-1, 1), (0, 0), and (1, 1) with probabilities $\dfrac{1}{4}$,$\dfrac{1}{2}$, and $\dfrac{1}{4}$. The expected values of X and Y is\\
+\begin{align}\tag{17}
     \begin{split}
-        E[X] = -1\cdot\dfrac{1}{4} + 0\cdot\dfrac{1}{2} + 1\cdot\dfrac{1}{4} = 0 = E[Y]\\
-        E[XY] = -1\cdot\dfrac{1}{4} + 0\cdot\dfrac{1}{2} + 1\cdot\dfrac{1}{4} = 0 = E[X]E[Y]
+        E[X] &= -1\brak{\dfrac{1}{4}} + 0\brak{\dfrac{1}{2}} + 1\brak{\dfrac{1}{4}} = 0 = E[Y]\\
+        E[XY] &= -1\brak{\dfrac{1}{4}} + 0\brak{\dfrac{1}{2}} + 1\brak{\dfrac{1}{4}} = 0 = E[X]E[Y]
     \end{split}
 \end{align}
 Now let's look at the marginal distributions of $X$ and $Y$. $X$ and $Y$ both take on the values $-1,\ 0,\ 1$ and the probability it takes for each of those are given by $\dfrac{1}{4},\ \dfrac{1}{2},\ \dfrac{1}{4}$. Then looping through the possibilities, we have to check if 
-\begin{align}\tag{17}
+\begin{align}\tag{18}
   \pr{X=x, Y=y} = \pr{X=x}\pr{Y=y}  
 \end{align}
 Let's take the first point (-1, 1) and examine,\\
-\begin{align}\tag{18}
+\begin{align}\tag{19}
     \begin{split}
         &\pr{X=-1, Y=1} = \dfrac{1}{4}\\ &\ne \dfrac{1}{16} = \pr{X=-1}\pr{Y=1}
     \end{split}
 \end{align}
 
 We loop through the other two points, and see that X and Y do not meet the definition of independent.\\
-Thus it proves that uncorrelated random variables are not always independent. Hence option (3) is false.\\
+Hence it proves that uncorrelated random variables are not always independent. Thus condition in option 3) fail to imply X and Y are independent random variables.\\
+
     \item We extend L.H.S
-\begin{align}\tag{19}
+\begin{align}\tag{20}
     \begin{split}
         E[(X-a)(Y-b)] = E[XY]\\ - aE[Y] - bE[X] + ab
     \end{split}
 \end{align}
 and R.H.S to compare,
-\begin{align}\tag{20}
+\begin{align}\tag{21}
     \begin{split}
         E(X-a) E(Y-b) = E[X]E[Y]\\ - aE[Y] - bE[X] + ab
     \end{split}
 \end{align}
-We see (13) = (14), i.e. independent iff\\
+We see (20) = (21), i.e. independent iff\\
 $E[XY] = E[X] E[Y]$ but in this case independence of X and Y cannot be inferred.\\
 
-Let us take a counter example to understand further as to why this condition not always true.\\
-Let $X$ be a standard normal random variable and $Y = X^2$.
-
-Then, since $E(X) = E(X^3) = 0$, we have 
-\begin{align}\tag{21}
-    E(XY) = E(X^3) = 0 = E(X)E(Y)
-\end{align}
-However, they are not independent:
+Let us take a counter example to understand further as to why this condition is not always true.\\
 \begin{align}\tag{22}
+    \begin{split}
+        Let\ &X\ \sim\ \mathcal{N}(0, 1)\\
+        &Y = X^2\\
+        &\text{Multiply\ X\ on\ both\ sides},\\
+        &XY = X^3\\
+        \\
+        &\text{Let\ us\ calculate\ the\ expected\ values},\\
+        &E(XY) = E(X^3) = E(X)E(Y)\\
+        &[\text{By\ property\ of\ expectations}]\\
+        \\
+        &E(XY) = E(X^3) = 0.E(Y) = 0\\
+        &[\because\ E(X) = 0]\\
+        \\
+        \therefore\ &E(XY) = E(X)E(Y)
+    \end{split}
+\end{align}
+From (22) we see they are uncorrelated but not independent because\\
+\begin{enumerate}
+    \item We have a case when $X \in (0,1)$ and at the same time $Y=X^2>1$. This will never happen, because if $X^2 > 1$ then $X>1$. So the probability is $0$.\\ 
+    \item $\pr{0<X<1}\\= F_X(1) - F_X(0)\\ = 0.84134475-0.5\\ = 0.34134475$\\
+    \item $P(Y>1)\\=P(X^2>1)\\=P(X>1)+P(X<-1)\\=2*(1-P(X\leq 1))\\=2*(1-F_X(1))\\=2*(1-0.84134475)=0.31731$\\
+\end{enumerate}
+Hence we can write,
+\begin{align}\tag{23}
     \begin{split}
         \pr{0<X<1,Y>1} = 0 \neq\\
         \pr{0<X<1}\pr{Y>1}
     \end{split}
 \end{align}
-Hence option (4) is false.
+Thus condition in option 4) fail to imply X and Y are independent random variables.
 \end{enumerate}
 \end{document}
