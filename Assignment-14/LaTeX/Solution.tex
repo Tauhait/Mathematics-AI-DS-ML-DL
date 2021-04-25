@@ -161,12 +161,13 @@ We analyze the options one by one and see which option best implies that random 
     \item Let us take a counter example to understand if option 1) being true implies X and Y to be independent random variables.
 \begin{align}\tag{1}
     \begin{split}
-        &Let\ Y > a\ be\ always\ true\ for\ some\ a\ \in\ \mathbb{R}\\
+        &X \sim \mathcal{N}(0, 1)\\
+        &Y = 10X\ and\ Y\ \sim \mathcal{N}(0, 100)\\
+        &a \in \mathbb{R}\cbrak{-10, -1}\\
         &\therefore\ \pr{Y>a} = 1\\
-        &Y = X + 2
     \end{split}
 \end{align}
-Now irrespective of the fact that X and Y are dependent, if $a$ is such that (1) holds we can write
+Now irrespective of the fact that X and Y are dependent, we can write
 \begin{align}\tag{2}
     \begin{split}
         \pr{X>a|Y>a} &= \frac{\pr{X>a, Y>a}}{\pr{Y>a}}\\
