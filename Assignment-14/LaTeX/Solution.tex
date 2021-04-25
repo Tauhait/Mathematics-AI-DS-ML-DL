@@ -158,21 +158,22 @@ and Y ?\\
 \subsection*{\boldsymbol{Solution}}
 We analyze the options one by one and see which option best implies that random variables X and Y are independent. \\
 \begin{enumerate}
-    \item Let us take a counter example to understand if option 1) being true implies X and Y to be independent random variables, 
+    \item Let us take a counter example to understand if option 1) being true implies X and Y to be independent random variables.
 \begin{align}\tag{1}
     \begin{split}
-        Let\ X &\in \{0, 1\}\\
-        Let\ Y &= X + 2\\
-        Let\ \pr{X=0} &= \pr{X=1} = \dfrac{1}{2}\\
+        &Let\ Y > a\ be\ always\ true\ for\ some\ a\ \in\ \mathbb{R}\\
+        &\therefore\ \pr{Y>a} = 1\\
+        &Y = X + 2
     \end{split}
 \end{align}
-Now since Y is always greater than X, so for any given $a\in \mathbb{R}$, $X > a$ does not depend on $Y > a$, so we can write
+Now irrespective of the fact that X and Y are dependent, if $a$ is such that (1) holds we can write
 \begin{align}\tag{2}
     \begin{split}
-        \pr{X>a|Y>a} = \pr{X>a}\ \forall\ a\ \in \mathbb{R}
+        \pr{X>a|Y>a} &= \frac{\pr{X>a, Y>a}}{\pr{Y>a}}\\
+                     &= \pr{X>a}
     \end{split}
 \end{align}
-Although the condition in option 1) is true in our example but we can see X and Y are dependent random variables. Hence option 1) does not imply X and Y to be independent.\\
+Although the condition in option 1) holds in our example but here X and Y are dependent random variables. Hence option 1) does not imply X and Y to be independent.\\
 
     \item Let us denote the individual C.D.F.s of the continuous random variables $X$, $Y$ and the joint C.D.F $(X, Y)$, as below,\\
 \begin{align}\tag{3}
