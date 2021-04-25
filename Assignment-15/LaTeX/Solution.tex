@@ -147,7 +147,7 @@ Download code and LaTeX from below hyperlinks\\
 1. \href{https://github.com/Tauhait/AI5002/tree/main/Assignment-15/LaTeX}{LaTeX}
 \end{mdframed}
 \subsection*{\boldsymbol{Problem\ \textbf{NET\_JUNE\_2012\_Q107}}}
-Let $X_1$, $X_2$, ... be independent random variables with\\ $X_n\ \sim$ Uniform(-n, 3n) where n = 1, 2, ...\\
+Let $X_1$, $X_2$, ... be independent random variables with\\ $X_n\ \sim$ U(-n, 3n) where n = 1, 2, ...\\
 
 Let $S_N = \dfrac{1}{\sqrt{N}}\ \sum_{n=1}^{N}\ \dfrac{X_n}{n}\ for\ N = 1, 2, ..\ \infty$\\
 
@@ -168,16 +168,29 @@ And by a simple computation we can see,
 \begin{equation}\tag{2}
     Y_n\ is\ i.i.d.\ \sim U(-\dfrac{2}{3},\ \dfrac{2}{3})
 \end{equation}
-Now,
+Also from (1), we can write 
 \begin{equation}\tag{3}
+    X_n = 3nY_n + n
+\end{equation}
+Now,
+\begin{equation}\tag{4}
     \begin{split}
-        S_N &= \dfrac{1}{\sqrt{N}}\ \sum_{n=1}^{N}\ \dfrac{n + 3nY_n}{n}\\
+        S_N &= \dfrac{1}{\sqrt{N}}\ \sum_{n=1}^{N}\ \dfrac{X_n}{n}\\
+            &From\ (3)\ we\ can\ write,\\
+            &= \dfrac{1}{\sqrt{N}}\ \sum_{n=1}^{N}\ \dfrac{n + 3nY_n}{n}\\
+            &= \dfrac{1}{\sqrt{N}}\ \sum_{n=1}^{N}\ 1 + 3Y_n\\
             &= 3\dfrac{1}{\sqrt{N}}\ \sum_{n=1}^{N}\ Y_n\ +\ \sqrt{N}\\
     \end{split}
 \end{equation}
-By Central limit theorem, the first term tends to a normal distribution.\\
-So, $S_N\rightarrow \infty$ which implies 
-\begin{equation}\tag{4}
+By Central Limit Theorem, the first term tends to a normal distribution and the whole R.H.S. tends to,\\
+\begin{equation}\tag{5}
+    \begin{split}
+        &As\ (N\ \rightarrow\ \infty)\\
+        &S_N = 3\dfrac{1}{\sqrt{N}}\ \sum_{n=1}^{N}\ Y_n\ +\ \sqrt{N}\ \longrightarrow\ \infty\\
+    \end{split}
+\end{equation}
+$\because\ S_N\ \rightarrow\ \infty$, it implies  
+\begin{equation}\tag{6}
     \begin{split}
         \lim_{N \to \infty}\ F_N(0) = 0\\
         \lim_{N \to \infty}\ F_N(1) = 0
@@ -185,11 +198,11 @@ So, $S_N\rightarrow \infty$ which implies
 \end{equation}
 
 By definition we know, a standard normal random variable is a normally distributed random variable with mean $\mu$ = 0  and standard deviation $\sigma$ = 1 . It is denoted by the letter  Z. From Z-distribution table we know,
-\begin{equation}\tag{5}
+\begin{equation}\tag{7}
     \begin{split}
         P(Z\leqslant 0) &= \phi(0) = 0.5\\
         P(Z\leqslant 1) &= \phi(1) = 0.84134
     \end{split}
 \end{equation}
-Hence by comparing (4) and (5) we see only options 1) and 3) are true. 
+Hence by comparing (6) and (7) we see only options 1) and 3) are true. 
 \end{document}
