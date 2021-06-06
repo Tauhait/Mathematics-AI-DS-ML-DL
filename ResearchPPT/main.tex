@@ -1,0 +1,343 @@
+\documentclass{beamer}
+\usepackage{listings}
+\lstset{
+%language=C,
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+\usepackage{blkarray}
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage{tikz}
+\usepackage{tkz-euclide} % loads  TikZ and tkz-base
+%\usetkzobj{all}
+\usetikzlibrary{calc,math}
+\usepackage{float}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\usepackage[export]{adjustbox}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{automata, positioning}
+\usetheme{Boadilla}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\providecommand{\brak}[1]{\ensuremath{\left(#1\right)}}
+\providecommand{\sbrak}[1]{\ensuremath{{}\left[#1\right]}}
+\DeclareMathOperator*{\max}{max}
+\logo{\includegraphics[height=0.8cm, center]{iith-logo}}
+\title[Naive Bayes As Discriminative Classifier]{Using Naive Bayes As Discriminative Classifier}
+
+\subtitle{Published on Dec, 2020}
+
+\author[Elie, Emmanuel, and Wojciech]
+{Elie Azeraf\inst{1} \and Emmanuel Monfrini\inst{2} \and Wojciech Pieczynski\inst{2}}
+
+\institute[]
+{
+  \inst{1}
+  Watson Department, IBM GSB France\\
+  \inst{2}
+  SAMOVAR, Telecom SudParis, Institut Polytechnique de Paris\\
+}
+
+\date[\today]
+{AI5002\\ Research Paper Presentation\\ Tuhin Dutta (AI21MTECH02002)}
+
+
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\frame{\titlepage}
+\begin{frame}
+\frametitle{Abstract}
+\begin{itemize}
+    \item<1-> For classification tasks, probabilistic models can be categorized into two disjoint classes: generative or discriminative.
+    \item<2-> Generative classifiers, like the Naive Bayes or the Hidden Markov Model (HMM), need the computation of the joint probability \pr{X, Y}, before using the Bayes rule to compute $\pr{X | Y}$.
+    \item<3-> Discriminative classifiers compute $\pr{X | Y}$ directly regardless of the observations' law and they are used extensively with models such as Logistic Regression.
+    \item<4-> After Entropic Forward-Backward algorithm proved that the HMM being a generative model can also match the discriminative classifier definition, in this paper we show that Logistic Regression can be viewed as a particular case of the Naive Bayes used in a discriminative way.
+\end{itemize}
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}
+\frametitle{1.1 Review Of Important Prerequisite Concepts}
+\begin{enumerate}
+    \item Probabilistic Graphical Models
+    \item Generative Classifier
+    \item Discriminative Classifier
+    \item Hidden Markov Model
+    \item Entropic Forward-Backward Algorithm
+    \item Gradient Descent Algorithm
+\end{enumerate}
+\end{frame}
+\begin{frame}{1.1 Review Of Important Prerequisite Concepts}
+\begin{block}{1.1.1 Probabilistic Graphical models (PGMs)}
+PGMs present a way to model relationships between random variables. Statistical models that encode complex joint multivariate probability distributions using graphs and capture conditional independence relationships between interacting random variables. One can easily visualize PGMs and get a quick overview of the model structure. By knowing the graph structure of a PGM, one can solve tasks such as inference (computing the marginal distribution of one or more random variables) or estimating the parameters of probability functions. Directed Graphical Models (DGMs) are Bayesian Networks (BNs) while Undirected Graphical Models (UGMs) are Markov Random Fields (MRFs).
+\end{block}
+\end{frame}
+\begin{frame}{1.1 Review Of Important Prerequisite Concepts}
+\begin{block}{1.1.2 Generative Classifier}
+Generative Classifiers tries to model class, i.e., what are the features of the class. When a new observation is given to these classifiers, it tries to predict which class would have most likely generated the given observation. Mathematically, generative models try to learn the joint probability distribution, $\pr{X, Y}$, of the inputs $X$ and label $Y$, and make their prediction using Bayes rule to calculate the conditional probability, $\pr{Y|X}$, and then picking a most likely label. Thus, it tries to learn the actual distribution of the class. An example of such classifiers is Naive Bayes.
+\end{block}
+\end{frame}
+\begin{frame}{1.1 Review Of Important Prerequisite Concepts}
+\begin{block}{1.1.3 Discriminative Classifier}
+Discriminative Classifiers learn what the features in the input are most useful to distinguish between the various possible classes. So, if given images of dogs and cats, and all the dog images have a collar, the discriminative models will learn that having a collar means the image is of dog. An example of a discriminative classifier is logistic regression. Mathematically, it directly calculates the posterior probability $\pr{Y|X}$ or learn a direct map from input $X$ to label $Y$. So, these models try to learn the decision boundary for the model.
+\end{block}
+\end{frame}
+\begin{frame}{1.1 Review Of Important Prerequisite Concepts}
+\begin{block}{1.1.4 Hidden Markov Model (HMMs)}
+A Markov chain is a model that tells us something about the probabilities of sequences of random variables, states, each of which can take on values from some set. The HMM is based on augmenting the Markov chain. HMMs are probabilistic sequence labeling algorithms which assigns a label to each unit in a sequence, thus mapping a sequence of observations to a sequence of labels of the same length. We know Markov Chains are used to compute probability for a sequence of observable events but when events are hidden we make use of HMMs. A (HMM) allows us to talk about both observed events (like words that we see in the input) and hidden events (like part-of-speech tags).
+\end{block}
+\end{frame}
+\begin{frame}{1.1 Review Of Important Prerequisite Concepts}
+\begin{block}{1.1.4 Hidden Markov Model (HMMs)}
+An HMM is specified by the following components:
+\begin{equation}
+    \begin{split}
+    Q = q_1q_2...q_N                &-\ a\ set\ of\ N\ states\\
+    A = a_{11}...a_{ij}...a_{NN}    &-\ a\ transition\ probability\ matrix\\
+    O = o_1o_2...o_T                &-\ a\ sequence\ of\ T\ observations\\
+    B = b_i(o_t)                    &-\ a\ sequence\ of\ observational\ likelihoods\\
+    \pi = \pi_1,\pi_2,..,\pi_N      &-\ initial\ probability\ distribution\ over\ states\\
+    \end{split}
+\end{equation}
+\end{block}
+\end{frame}
+\begin{frame}{1.1 Review Of Important Prerequisite Concepts}
+\begin{block}{1.1.4 Hidden Markov Model (HMMs)}
+Two of the assumptions taken by HMMs are 
+\begin{itemize}
+    \item  Markov assumption: The probability of a particular state depends on the previous state.\\
+    \begin{equation}
+       \pr{q_i\ |\ q_1,..,q_{i-1}} = \pr{q_i\ |\ q_{i-1}}
+    \end{equation}
+    \item Output Independence: The probability of an output observation $o_i$ depends only on the state that produced the observation $q_i$ and not on any other states or any other observations.\\
+    \begin{equation}
+        \pr{o_i\ |\ q_1,..,q_i,..,q_T,o_1,..o_i,..,o_T} = \pr{o_i\ |\ q_i}
+    \end{equation}
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}{1.1 Review Of Important Prerequisite Concepts}
+\begin{block}{1.1.5 Entropic Forward-Backward Algorithm}
+EFB algorithms are discriminative classifiers of HMMs. We consider a homogeneous HMM with the following notations:
+\begin{itemize}
+    \item $\pi(i) = \pr{x_t = \lambda_i}$
+    \item $a_i(j) = \pr{x_{t+1} = \lambda_j\ |\ x_t = \lambda_i}$
+    \item $b_i(y_t) = \pr{y_t\ |\ x_t = \lambda_i}$
+    \item $L_{yt}(i) = \pr{x_t = \lambda_i\ |\ y_t}$
+\end{itemize}
+The Entropic Forward-Backward algorithm consists in computing, $\pr{x_t = \lambda_i\ |\ y_{1:T}}$.
+\end{block} 
+\end{frame}
+\begin{frame}{1.1 Review Of Important Prerequisite Concepts}
+\begin{block}{1.1.5 Entropic Forward-Backward Algorithm}
+\begin{equation}
+    \pr{x_t = \lambda_i\ |\ y_{1:T}} = \dfrac{\alpha_{t}^{E}(i)\ \beta_{t}^{E}(i)}{\sum_{j=1}^{N}\alpha_{t}^{E}(j)\ \beta_{t}^{E}(j)}
+\end{equation}
+Entropic forward probabilities $\alpha^E$ is computed as:
+\begin{equation}
+\begin{split}
+    \alpha_{1}^{E}(i) &= L_{y1}(i)\\
+    \alpha_{t+1}^{E}(i) &= \dfrac{L_{y_{t+1}(i)}}{\pi(i)} \sum_{j=1}^{N}\alpha_{t}^{E}(j)\ a_j(i)
+\end{split}
+\end{equation}
+\end{block} 
+\end{frame}
+\begin{frame}{1.1 Review Of Important Prerequisite Concepts}
+\begin{block}{1.1.5 Entropic Forward-Backward Algorithm}
+and Entropic backward $\beta^{E}$:
+\begin{equation}
+\begin{split}
+    \beta_{T}^{E}(i) &= 1\\
+    \beta_{t}^{E}(i) &= \sum_{j=1}^{N}\dfrac{L_{y_{t+1}}(j)}{\pi(j)}\  \beta_{t+1}^{E}(j)\ a_i(j)
+\end{split}
+\end{equation}
+This algorithm allows computing the posterior distribution directly, without using the joint distribution, or the observations’ one. It also allows training the HMM with optimization algorithms as the gradient descent. Therefore, in this case, the HMM matches the discriminative classifier’s definition.
+\end{block} 
+\end{frame}
+\begin{frame}{1.1 Review Of Important Prerequisite Concepts}
+\begin{block}{1.1.6 Gradient Descent Algorithm}
+Gradient descent is a way to minimize an objective function $J(\theta)$ parameterized by a model's parameters $\theta\ \in\ \mathbb{R}^d$ by updating the parameters in the opposite direction of the gradient of the objective function $\bigtriangledown_\theta\ J(\theta)$ w.r.t to the parameters. The learning rate $\eta$ determines the size of steps we take to reach a local minimum. In other words, we follow the direction of the slope of the surface created by the objective function downhill until we reach a valley.
+\end{block}
+\end{frame}
+\begin{frame}{1.2 About}
+    A recent work about HMM presents the Entropic Forward-Backward algorithm allows computing the posterior distribution $\pr{x_t = \lambda_i\ |\ y_{1:T}}$ directly, without using the joint distribution, or the observations’ one. It also allows training the HMM with optimization algorithms as the gradient descent. Therefore, in this case, the
+HMM matches the discriminative classifier’s definition. This leads to question this categorization of probabilistic classifiers, which is the aim of the paper. 
+\end{frame}
+\begin{frame}{1.3 Objectives}
+We present the objectives of the paper as:
+    \begin{itemize}
+        \item Naive Bayes, a popular generative model, can also match the definition of a discriminative one. Hence traditional definitions of both discriminative and generative models do not necessarily lead to disjoint categories.
+        \item The notion of Generative-Discriminative pairs linking a  generative model with its discriminative counterpart, as for example, the Naive Bayes - Logistic Regression pair, or the HMM - CRF one.
+    \end{itemize}
+\end{frame}
+\section{Naive Bayes Classifier}
+\begin{frame}{2.1 Compute Label Probabilities}
+\begin{block}{2.1.1 Using joint or observations' probability}
+Considering observations $y_{1:T} = (y_1,..,y_T)$ and a hidden variable $x$ taking its values in $\Lambda_x$. It models the joint probability of $(x,y_{1:T})$ as:
+\begin{equation}
+    \pr{x,y_{1:T}} = \pr{x}\Pi_{t=1}^{T}\pr{y_t\ |\ x}
+\end{equation}
+In the generative way, for each $\lambda_i\ \in\ \Lambda_x$, Naive Bayes distributed $\pr{x=\lambda_i\ |\ y_{1:T}}$ is computed as:
+\begin{equation}
+    \pr{x=\lambda_i\ |\ y_{1:T}} = \dfrac{\pr{x=\lambda_i, y_{1:T}}}{\sum_{\lambda_j\ \in\ \Lambda_x} \pr{x=\lambda_j, y_{1:T}}}
+\end{equation}
+\end{block}
+\end{frame}
+\begin{frame}{2.1 Compute Label Probabilities}
+\begin{block}{2.1.1 Using joint or observations' probability}
+\begin{equation}
+    \pr{x=\lambda_i\ |\ y_{1:T}} = \dfrac{\pr{x=\lambda_i}\ \Pi_{t=1}^{T}\pr{y_t\ |\ x=\lambda_i}}{\sum_{\lambda_j\ \in\ \Lambda_x}\pr{x=\lambda_j}\Pi_{t=1}^{T}\pr{y_t\ |\ x=\lambda_j}}
+\end{equation}
+We see that first the joint probability $\pr{x = \lambda_i, y_{1:T}}$ is computed, and then the posterior $\pr{x = \lambda_i\ |\ y_{1:T}}$. The difficulties arise as the number of feature increases are:
+\begin{itemize}
+    \item Assumption of independent predictor features
+    \item Zero frequency
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}{2.1 Compute Label Probabilities}
+\begin{block}{2.1.2 Computing directly $\pr{x = \lambda_i\ |\ y_{1:T}}$}
+    To simplify notations, we assume:
+    \begin{equation}
+        \begin{split}
+            \pi(i) &= \pr{x = \lambda_i}\\
+            b_{i}^{(t)}(y) &= \pr{y_t\ |\ x_t = \lambda_i}\\
+            L_{y_t}^{(t)}(i) &= \pr{x = \lambda_i\ |\ y_t}\\
+        \end{split}
+    \end{equation}
+\end{block}
+\end{frame}
+\begin{frame}{2.1 Compute Label Probabilities}
+\begin{block}{2.1.2 Proof of computing $\pr{x = \lambda_i\ |\ y_{1:T}}$ directly}
+    Re-writing (9) using (10),
+    \begin{equation}
+        \begin{split}
+            \pr{x=\lambda_i\ |\ y_{1:T}} &= \dfrac{\pi(i)\ \Pi_{t=1}^{T}\dfrac{\pr{y_t,\ x=\lambda_i}}{\pi(i)}}{\sum_{j=1}^{N}\pi(j)\ \Pi_{t=1}^{T}\dfrac{\pr{y_t,\ x=\lambda_j}}{\pi(j)}}\\
+            \pr{x=\lambda_i\ |\ y_{1:T}} &= \dfrac{\pi(i)^{1-T}\ \Pi_{t=1}^{T}\pr{y_t,\ x=\lambda_i}\dfrac{\pr{y_t}}{\pr{y_t}}}{\sum_{j=1}^{N}\pi(j)^{1-T}\ \Pi_{t=1}^{T}\pr{y_t,\ x=\lambda_j}\dfrac{\pr{y_t}}{\pr{y_t}}}
+        \end{split}
+    \end{equation}
+\end{block}
+\end{frame}
+\begin{frame}{2.1 Compute Label Probabilities}
+\begin{block}{2.1.2 Computing directly $\pr{x = \lambda_i\ |\ y_{1:T}}$}
+    Re-writing (9) using notations from (10),
+    \begin{equation}
+        \begin{split}
+            \pr{x=\lambda_i\ |\ y_{1:T}} &= \dfrac{\pi(i)^{1-T}\ \Pi_{t=1}^{T}\pr{x = \lambda_i\ |\ y_t}\pr{y_t}}{\sum_{j=1}^{N}\pi(j)^{1-T}\ \Pi_{t=1}^{T}\pr{x = \lambda_i\ |\ y_t}\pr{y_t}}\\
+            \pr{x=\lambda_i\ |\ y_{1:T}} &= \dfrac{\pi(i)^{1-T}\ \Pi_{t=1}^{T}L_{y_t}^{(t)}(i)}{\sum_{j=1}^{N}\pi(j)^{1-T}\ \Pi_{t=1}^{T}L_{y_t}^{(t)}(j)}
+        \end{split}
+    \end{equation}
+    Now, for each $\lambda_i\ \in\ \Lambda_x$, we set:
+    \begin{equation}
+        \delta(i) = \pi(i)^{1-T}\ \Pi_{t=1}^{T}L_{y_t}^{(t)}(i)
+    \end{equation}
+\end{block}
+\end{frame}
+\begin{frame}{2.1 Compute Label Probabilities}
+\begin{block}{2.1.2 Computing directly $\pr{x = \lambda_i\ |\ y_{1:T}}$}
+    From (9) we can write the joint probability in terms of $\delta(i)$ as shown below:
+    \begin{equation}
+        \begin{split}
+            \pr{x=\lambda_i,\ y_{1:T}} &= \pr{x=\lambda_i}\Pi_{t=1}^{T} \pr{y_t\ |\ x=\lambda_i}\\
+            \pr{x=\lambda_i,\ y_{1:T}} &= \pi(i)\ \Pi_{t=1}^{T}\ b_{i}^{(t)}(y)\\
+            \pr{x=\lambda_i,\ y_{1:T}} &= \pi(i)\ \Pi_{t=1}^{T}\ \dfrac{\pr{y_t,\ x=\lambda_i}}{\pr{x=\lambda_i}}\\
+            \pr{x=\lambda_i,\ y_{1:T}} &= \pi(i)^{1-T}\ \Pi_{t=1}^{T}\ \pr{y_t} L_{y_t}^{(t)}(i)\\
+            \pr{x=\lambda_i,\ y_{1:T}} &= \delta(i)\ \Pi_{t=1}^{T}\ \pr{y_t}\ [Using\ (13)]\\
+        \end{split}
+    \end{equation}
+\end{block}
+\end{frame}
+\begin{frame}{2.1 Compute Label Probabilities}
+\begin{block}{2.1.2 Computing directly $\pr{x = \lambda_i\ |\ y_{1:T}}$}
+Now, we show that one can use the Naive Bayes classifier by computing $\pr{x = \lambda_i\ |\ y_{1:T}}$ directly without using joint, i.e $\pr{x=\lambda_i,\ y_{1:T}}$, or observational, i.e $\pr{y_t\ |\ x_t = \lambda_i}$, probability: 
+    \begin{equation}
+        \begin{split}
+             \pr{x=\lambda_i\ |\ y_{1:T}} &= \dfrac{\pr{x=\lambda_i,\ y_{1:T}}}{\sum_{j=1}^{N}\pr{x=\lambda_j,\ y_{1:T}}}\\
+            \pr{x=\lambda_i\ |\ y_{1:T}} &= \dfrac{\delta(i)}{\sum_{j=1}^{N}\ \delta(j)}\\
+            % \pr{x=\lambda_i\ |\ y_{1:T}} &= \dfrac{\pr{x = \lambda_i}^{1-T}\ \Pi_{t=1}^{T}\ \pr{x=\lambda_i\ |\ y_t}}{\sum_{j=1}^{N}\ \pr{x = \lambda_j}^{1-T}\Pi_{t=1}^{T}\ \pr{x=\lambda_j\ |\ y_t}}
+        \end{split}
+    \end{equation}
+\end{block}
+\end{frame}
+
+\section{Logistic Regression}
+
+\begin{frame}{3.1 The Classifier}
+    Logistic Regression is a probabilistic graphical model which can be trained using gradient descent algorithm. It is considered as a discriminative model. For each $t\ \Omega_Y_t = \mathbb{R}$, the multinomial logistic regression computes $\pr{x\ |\ y_{1:T}}$ as:
+    \begin{equation}
+        \pr{x=\lambda_i\ |\ y_{1:T}} = \dfrac{\exp{(W_i \cdot y_{1:T} + b_i)}}{\sum_{j=1}^{N}\ \exp{(W_j \cdot y_{1:T} + b_j)}}
+    \end{equation}
+    where for each $i\ \in\ \{1,...,N\}$,\\$W_i\ \in\ \mathbb{R}^T,\ b_i\ \in\ \mathbb{R},\ and\ \cdot\ denotes\ the\ matrix\ product.$ With this
+model, we notice that each probability computed is strictly greater than 0.
+\end{frame}
+
+\begin{frame}{3.2 Particular case of the Naive Bayes}
+    Logistic Regression with the notion of Generative – Discriminative pairs is linked with Naive Bayes. However, we are going to show that Logistic Regression is a particular case of the Naive Bayes.\\
+    \begin{block}{Proposition}
+        Let us consider a Naive Bayes classifier used in a discriminative way with (12). If, for each $i\ \in\ \{1,..,N\},\ t\ \in\ 1,...,T$:
+            \begin{equation}
+                \pr{x=\lambda_i\ |\ y_{1:T}} = \dfrac{\exp{(a_i^{(t)}y_t + c_i^{(t)})}}{\sum_{k=1}^{N}\exp{(a_k^{(t)}y_t + c_k^{(t)})}}
+            \end{equation}
+        with $a_i^{(t)}\ \in\ \mathbb{R}$ and $c_i^{(t)}\ \in\ \mathbb{R}$, then this classifier is a Logistic Regression.
+    \end{block}
+\end{frame}
+
+\begin{frame}{3.2 Particular case of the Naive Bayes}
+    We start from (12), for each $\lambda_i\ \in\ \Lambda_x$:
+    \begin{block}{Proof}
+    \begin{equation}
+        \begin{split}
+            \pr{x=\lambda_i\ |\ y_{1:T}} &= \dfrac{\pi(i)^{1-T}\ \Pi_{t=1}^{T}L_{y_t}^{(t)}(i)}{\sum_{j=1}^{N}\pi(j)^{1-T}\ \Pi_{t=1}^{T}L_{y_t}^{(t)}(j)}\\
+             &= \dfrac{\pi(i)^{1-T}\ \Pi_{t=1}^{T} \dfrac{\exp{(a_i^{(t)}y_t + c_i^{(t)})}}{\sum_{k=1}^{N}\exp{(a_k^{(t)}y_t + c_k^{(t)})}}}{\sum_{j=1}^{N}\pi(j)^{1-T}\ \Pi_{t=1}^{T}\dfrac{\exp{(a_j^{(t)}y_t + c_j^{(t)})}}{\sum_{k=1}^{N}\exp{(a_k^{(t)}y_t + c_k^{(t)})}}}\\
+        \end{split}
+    \end{equation}
+    \end{block}
+\end{frame}
+
+\begin{frame}{3.2 Particular case of the Naive Bayes}
+    \begin{block}{Proof contd}
+    \begin{equation}\tag{18}
+        \begin{split}
+             &= \dfrac{\pi(i)^{1-T}\ \prod_{t=1}^{T} \exp{(a_i^{(t)}y_t + c_i^{(t)})}}{\sum_{j=1}^{N}\pi(j)^{1-T}\ \prod_{t=1}^{T}\exp{(a_j^{(t)}y_t + c_j^{(t)})}}\\
+             &= \dfrac{\exp{((1-T)\log{\pi(i)} + \sum_{t=1}^{T}(a_i^{(t)}y_t + c_i^{(t)}))}}{\sum_{j=1}^{N}\exp{((1-T)\log{\pi(j)} + \sum_{t=1}^{T}(a_j^{(t)}y_t + c_j^{(t)}))}}
+        \end{split}
+    \end{equation}
+    \end{block}
+\end{frame}
+\begin{frame}{3.2 Particular case of the Naive Bayes}
+    \begin{block}{Proof contd}
+    We set and verify that $b_i\ \in\ \mathbb{R}$ and $W_i\ \in\ \mathbb{R}^T$
+    \begin{itemize}
+        \item $b_i = (1-T)\log{\pi(i)} + \sum_{t=1}^T\ c_i^{(t)}$
+        \item $W_i = [\ a_i^{(1)},\ a_i^{(2)},\ ..,\ a_i^{(T)}]\ $
+    \end{itemize}
+    Finally, we have proved the proposition as shown below:
+    \begin{equation}
+        \pr{x=\lambda_i\ |\ y_{1:T}} &= \dfrac{\exp{(W_i \cdot y_{1:T} + b_i)}}{\sum_{j=1}^{N}\ \exp{(W_j \cdot y_{1:T} + b_j)}}
+    \end{equation}
+    This shows that one can view the Logistic Regression as a particular case of the Naive Bayes used in a discriminative way.
+    \end{block}
+\end{frame}
+\section{Conclusion}
+\begin{frame}{4.1 Interchangeable Generative-Discriminative Models}
+    This paper presents how to use the Naive Bayes as a discriminative model. A practical consequence is that it can be used in both generative and discriminative ways; the latter allowing arbitrary feature consideration. Moreover, we show that the Logistic Regression, usually presented as the discriminative counterpart of the Naive Bayes, can be seen as a particular case of the latter used in a discriminative way. A general conclusion is that the usual definitions of generative and discriminative models do not lead to disjoint families; and there are models that simultaneously satisfy
+both of them.
+\end{frame}
+\begin{frame}{4.2 Future Work}
+    An interesting perspective would consist in extending ideas of the paper to other popular generative models and examining whether they can also be used in a discriminative way.
+\end{frame}
+\end{document}
