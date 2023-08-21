@@ -1,4 +1,3 @@
-# AI5002
 Probability and Random Variables
 
   * <h1>Assignment 1 - Rayleigh distribution</h1>
